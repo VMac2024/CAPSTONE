@@ -1,9 +1,9 @@
 "use strict";
 const Models = require("../models");
 
-//Find all posts:
-const getPosts = (res) => {
-  Models.Post.findAll({})
+//Find all articles:
+const getArticles = (res) => {
+  Models.Article.findAll({})
     .then((data) => {
       res.send({ result: 200, data: data });
     })
@@ -13,8 +13,8 @@ const getPosts = (res) => {
     });
 };
 
-//Create new posts:
-//CHECK CODE FOR CREATE NEW POST:
+//Create new articles:
+//CHECK CODE FOR CREATE NEW ARTICLE:
 const createPost = (data, res) => {
   Models.Post.create(data)
     .then((data) => {
@@ -27,8 +27,8 @@ const createPost = (data, res) => {
 };
 
 //update posts:
-const updatePost = (req, res) => {
-  Models.Post.findByIdAndUpdate(req.params.id, req.body, { new: true })
+const updateArticle = (req, res) => {
+  Models.Article.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then((data) => {
       res.send({ result: 200, data: data });
     })
