@@ -13,10 +13,17 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = [
+  { link: "/", label: "Home" },
+  { link: "/login", label: "Login" },
+  { link: "/posts", label: "Posts" },
+  { link: "/articles", label: "Articles" },
+  { link: "/events", label: "Events" },
+  { link: "/about", label: "About" },
+];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function ResponsiveAppBar() {
+function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -36,26 +43,27 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="fixed" sx={{ backgroundColor: "#001c28" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {/*Navbar Icon */}
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
               textDecoration: "none",
+              color: "#aab7a5",
             }}
           >
-            LOGO
+            GreenEarth Community Hub
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -86,8 +94,8 @@ function ResponsiveAppBar() {
               sx={{ display: { xs: "block", md: "none" } }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: "center" }}>{page}</Typography>
+                <MenuItem key={page.link} onClick={handleCloseNavMenu}>
+                  <Typography sx={{ textAlign: "center" }}>{page.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -105,7 +113,7 @@ function ResponsiveAppBar() {
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
+              color: "#aab7a5",
               textDecoration: "none",
             }}
           >
@@ -113,8 +121,8 @@ function ResponsiveAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }}>
-                {page}
+              <Button key={page.link} onClick={handleCloseNavMenu} sx={{ my: 2, color: "#aab7a5", display: "block" }}>
+                {page.label}
               </Button>
             ))}
           </Box>
@@ -152,4 +160,4 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+export default NavBar;
