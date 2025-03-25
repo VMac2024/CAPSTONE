@@ -26,6 +26,8 @@ const createUser = (data, res) => {
     });
 };
 
+//Create token: - see middleware - jsonwebtoken - see Jo's code.
+
 //update users:
 const updateUser = (req, res) => {
   Models.User.findByIdAndUpdate(req.params.id, req.body, { new: true })
@@ -49,6 +51,11 @@ const deleteUser = (req, res) => {
       res.send({ result: 500, error: err.message });
     });
 };
+
+//CREATE USER TOKEN WITH TIMEOUT LIMIT.
+//CHECK THAT THE USER DOESN'T ALREADY HAVE AN ACCOUNT - IF THEY ALREADY HAVE ONE, THEY ARE GIVEN AN ERROR. IF NOT, THEN THEY PROCEED WITH REGISTERING.
+//bcrypt.js - npm  install bcrypt.js.
+//convert emails to lowercase.
 
 module.exports = {
   getUsers,
