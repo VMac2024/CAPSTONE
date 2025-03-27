@@ -1,9 +1,9 @@
 "use strict";
-const Models = require("../models");
+const Models = require("../../models");
 
-//Find all articles:
-const getArticles = (res) => {
-  Models.Article.findAll({})
+//Find all projects:
+const getProjects = (res) => {
+  Models.Project.findAll({})
     .then((data) => {
       res.send({ result: 200, data: data });
     })
@@ -13,10 +13,10 @@ const getArticles = (res) => {
     });
 };
 
-//Create new articles:
-//CHECK CODE FOR CREATE NEW ARTICLE:
-const createArticle = (data, res) => {
-  Models.Article.create(data)
+//Create new projects:
+//CHECK CODE FOR CREATE NEW POST:
+const createProject = (data, res) => {
+  Models.Project.create(data)
     .then((data) => {
       res.send({ result: 200, data: data });
     })
@@ -26,9 +26,9 @@ const createArticle = (data, res) => {
     });
 };
 
-//update articles:
-const updateArticle = (req, res) => {
-  Models.Article.findByIdAndUpdate(req.params.id, req.body, { new: true })
+//update projects:
+const updateProject = (req, res) => {
+  Models.Project.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then((data) => {
       res.send({ result: 200, data: data });
     })
@@ -38,9 +38,9 @@ const updateArticle = (req, res) => {
     });
 };
 
-//delete articles:
-const deleteArticle = (req, res) => {
-  Models.Article.findByIdAndDelete(req.params.id)
+//delete project:
+const deleteProject = (req, res) => {
+  Models.Project.findByIdAndDelete(req.params.id)
     .then((data) => {
       res.send({ result: 200, data: data });
     })
@@ -51,10 +51,8 @@ const deleteArticle = (req, res) => {
 };
 
 module.exports = {
-  getArticles,
-  createArticle,
-  updateArticle,
-  deleteArticle,
+  getProjects,
+  createProject,
+  updateProject,
+  deleteProject,
 };
-
-// ADD FIND ARTICLES BY USER
