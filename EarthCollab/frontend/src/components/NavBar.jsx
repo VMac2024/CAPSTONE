@@ -15,8 +15,8 @@ import AdbIcon from "@mui/icons-material/Adb";
 
 const pages = [
   { link: "/", label: "Home" },
-  { link: "/login", label: "Login" },
-  { link: "/posts", label: "Posts" },
+  { link: "/loginpage", label: "Login" },
+  { link: "/postpage", label: "Posts" },
   { link: "/articles", label: "Articles" },
   { link: "/events", label: "Events" },
   { link: "/about", label: "About" },
