@@ -1,7 +1,9 @@
 const { DataTypes, Model } = require("sequelize");
 let dbConnect = require("../dbConnect");
 const sequelizeInstance = dbConnect.Sequelize;
+
 class User extends Model {}
+
 // Sequelize will create this table if it doesn't exist on startup
 User.init(
   {

@@ -1,5 +1,5 @@
 "use strict";
-const Models = require("../../models");
+const Models = require("../models");
 
 //Find all projects:
 const getProjects = (res) => {
