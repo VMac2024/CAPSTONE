@@ -37,23 +37,25 @@ const handleFileChange = (e) => {
     data: e.target.files[0],
   };
   setFile(pdf);
+
+  return (
+    <container component="main" maxWidth="sx">
+      <CssBaseline />
+      <h3>Upload Article</h3>
+      <h5>Note: must be a pdf to upload</h5>
+      {currentUser.id ? (
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          noValidate
+          sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}
+        ></Box>
+      ) : (
+        <p>Please log in first</p>
+      )}{" "}
+      <p>{status}</p>
+    </container>
+  );
 };
 
-return (
-  <container component="main" maxWidth="sx">
-    <CssBaseline />
-    <h3>Upload Article</h3>
-    <h5>Note: must be a pdf to upload</h5>
-    {currentUser.id ? (
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        noValidate
-        sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}
-      ></Box>
-    ) : (
-      <p>Please log in first</p>
-    )}{" "}
-    <p>{status}</p>
-  </container>
-);
+export default PDFUpload;

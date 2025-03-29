@@ -28,7 +28,7 @@ const createProject = (data, res) => {
 
 //update projects:
 const updateProject = (req, res) => {
-  Models.Project.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  Models.Project.update(req.body, { where: { id: req.params.id }, returning: true })
     .then((data) => {
       res.send({ result: 200, data: data });
     })
@@ -40,7 +40,7 @@ const updateProject = (req, res) => {
 
 //delete project:
 const deleteProject = (req, res) => {
-  Models.Project.findByIdAndDelete(req.params.id)
+  Models.Project.destroy({ where: { id: req.params.id } })
     .then((data) => {
       res.send({ result: 200, data: data });
     })

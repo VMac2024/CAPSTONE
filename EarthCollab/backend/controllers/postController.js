@@ -28,7 +28,7 @@ const createPost = (data, res) => {
 
 //update posts:
 const updatePost = (req, res) => {
-  Models.Post.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  Models.Post.update(req.body, { where: { id: req.params.id }, returning: true })
     .then((data) => {
       res.send({ result: 200, data: data });
     })
@@ -40,7 +40,7 @@ const updatePost = (req, res) => {
 
 //delete users:
 const deletePost = (req, res) => {
-  Models.Post.findByIdAndDelete(req.params.id)
+  Models.Post.destroy({ where: { id: req.params.id } })
     .then((data) => {
       res.send({ result: 200, data: data });
     })

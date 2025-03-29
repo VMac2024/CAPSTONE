@@ -28,7 +28,7 @@ const createComment = (data, res) => {
 
 //update posts:
 const updateComment = (req, res) => {
-  Models.Comment.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  Models.Comment.update(req.body, { where: { id: req.params.id }, returning: true })
     .then((data) => {
       res.send({ result: 200, data: data });
     })
@@ -40,7 +40,7 @@ const updateComment = (req, res) => {
 
 //delete users:
 const deleteComment = (req, res) => {
-  Models.Comment.findByIdAndDelete(req.params.id)
+  Models.Comment.destroy({ where: { id: req.params.id } })
     .then((data) => {
       res.send({ result: 200, data: data });
     })

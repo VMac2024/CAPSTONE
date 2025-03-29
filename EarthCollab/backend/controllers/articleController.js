@@ -28,7 +28,7 @@ const createArticle = (data, res) => {
 
 //update articles:
 const updateArticle = (req, res) => {
-  Models.Article.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  Models.Article.update(req.body, { where: { id: req.params.id }, returning: true })
     .then((data) => {
       res.send({ result: 200, data: data });
     })
@@ -40,7 +40,7 @@ const updateArticle = (req, res) => {
 
 //delete articles:
 const deleteArticle = (req, res) => {
-  Models.Article.findByIdAndDelete(req.params.id)
+  Models.Article.destroy({ where: { id: req.params.id } })
     .then((data) => {
       res.send({ result: 200, data: data });
     })
