@@ -4,14 +4,17 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import { ThemeProvider } from "@mui/material/styles";
 import AppRoutes from "./routes/AppRoutes";
+import { UserProvider } from "./context/userContext";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <NavBar />
-      <AppRoutes />
+      <UserProvider>
+        <NavBar />
+        <AppRoutes />
+      </UserProvider>
     </>
   );
 }
