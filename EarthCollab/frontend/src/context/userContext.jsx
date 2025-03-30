@@ -1,6 +1,7 @@
-import { useContext } from "react";
+import React from "react";
+import { createContext, useState, useContext } from "react";
 
-const UserContext = React.createContext();
+const UserContext = createContext();
 
 export const UserProvider = (props) => {
   const [currentUser, setCurrentUser] = useState({});

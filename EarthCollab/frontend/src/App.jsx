@@ -7,7 +7,7 @@ import AppRoutes from "./routes/AppRoutes";
 import { UserProvider } from "./context/userContext";
 
 function App() {
-  const [count, setCount] = useState(0);
+  //const [count, setCount] = useState(0);
 
   return (
     <>
