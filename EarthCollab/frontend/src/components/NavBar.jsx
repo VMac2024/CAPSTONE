@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const pages = [
   { link: "/", label: "Home" },
@@ -25,7 +25,6 @@ const pages = [
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function NavBar() {
-  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -96,7 +95,9 @@ function NavBar() {
               sx={{ display: { xs: "block", md: "none" } }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.link} onClick={handleCloseNavMenu}>
+                <MenuItem key={page.link} component={NavLink} to={page.link}>
+                  {page.label}
+
                   <Typography sx={{ textAlign: "center" }}>{page.label}</Typography>
                 </MenuItem>
               ))}
@@ -123,7 +124,7 @@ function NavBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button key={page.link} onClick={handleCloseNavMenu} sx={{ my: 2, color: "#aab7a5", display: "block" }}>
+              <Button key={page.link} component={NavLink} to={page.link} sx={{ my: 2, color: "#aab7a5", display: "block" }}>
                 {page.label}
               </Button>
             ))}
