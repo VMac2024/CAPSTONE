@@ -7,7 +7,6 @@ export default function Homepage() {
       <div className="Homepage">
         <h1>GreenEarth Community Collaboration Hub</h1>
       </div>
-      <PDFUpload />
     </>
   );
 }

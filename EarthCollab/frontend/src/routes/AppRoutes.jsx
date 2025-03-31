@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import Homepage from "../pages/Homepage";
 import LoginPage from "../pages/LoginPage";
 import PostPage from "../pages/PostPage";
 import EventPage from "../pages/EventPage";
 import AboutPage from "../pages/AboutPage";
-import ResourcesPage from "../pages/ResourcesPage";
+import ArticlesPage from "../pages/ArticlesPage";
+import Homepage from "../pages/HomePage";
 
 function AppRoutes(props) {
   return (
@@ -16,7 +16,7 @@ function AppRoutes(props) {
       <Route path="/postpage" element={<PostPage {...props} />} />
       <Route path="/events" element={<EventPage {...props} />} />
       <Route path="/about" element={<AboutPage {...props} />} />
-      <Route path="/resources" element={<ResourcesPage {...props} />} />
+      <Route path="/articles" element={<ArticlesPage {...props} />} />
     </Routes>
   );
 }
