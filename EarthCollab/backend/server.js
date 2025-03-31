@@ -11,7 +11,7 @@ app.use(express.json());
 let userRoutes = require("./routes/userRoutes");
 app.use("/api/user", userRoutes);
 
-let articleRoutes = require("./routes/articlesRoutes");
+let articleRoutes = require("./routes/articleRoutes");
 app.use("/api/article", articleRoutes);
 
 let commentRoutes = require("./routes/commentRoutes");
