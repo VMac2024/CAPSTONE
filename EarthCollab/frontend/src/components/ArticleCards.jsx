@@ -22,7 +22,7 @@ export default function ArticleCard({ article }) {
               {article.category}
             </Typography>
             <Typography variant="h5" component="div">
-              {article.title}
+              Title: {article.title}
             </Typography>
             <Typography sx={{ color: "text.secondary", mb: 1.5 }}>adjective</Typography>
             <Typography variant="body2">{article.description}</Typography>

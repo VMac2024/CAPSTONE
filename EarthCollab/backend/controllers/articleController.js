@@ -50,6 +50,17 @@ const deleteArticle = (req, res) => {
     });
 };
 
+const addPdfFile = async (req, res) => {
+  Models.Article.destroy({ where: { id: req.params.id } })
+    .then((data) => {
+      res.send({ result: 200, data: data });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send({ result: 500, error: err.message });
+    });
+};
+
 module.exports = {
   getArticles,
   createArticle,

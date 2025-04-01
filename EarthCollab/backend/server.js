@@ -2,7 +2,10 @@
 
 const express = require("express");
 const app = express();
-require("dotenv").config();
+const dotenv = require("dotenv");
+const environment = process.env.NODE_ENV || "local";
+
+dotenv.config({ path: `./.env.${environment}` });
 
 let dbConnect = require("./dbConnect");
 
