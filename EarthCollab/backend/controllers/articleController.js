@@ -1,5 +1,6 @@
 "use strict";
 const Models = require("../models");
+const path = require("path");
 
 //Find all articles:
 const getArticles = (res) => {
@@ -15,8 +16,16 @@ const getArticles = (res) => {
 
 //Create new articles:
 //CHECK CODE FOR CREATE NEW ARTICLE:
-const createArticle = (data, res) => {
-  Models.Article.create(data)
+const createArticle = (req, res) => {
+  console.log(req.file); //check file name.
+  const { title, description, category } = req.body;
+  const pdfLink = { pdfLink: "/uploads/" + req.file.filename };
+  Models.Article.create({
+    title,
+    pdfLink,
+    description,
+    category,
+  })
     .then((data) => {
       res.send({ result: 200, data: data });
     })
@@ -40,17 +49,6 @@ const updateArticle = (req, res) => {
 
 //delete articles:
 const deleteArticle = (req, res) => {
-  Models.Article.destroy({ where: { id: req.params.id } })
-    .then((data) => {
-      res.send({ result: 200, data: data });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.send({ result: 500, error: err.message });
-    });
-};
-
-const addPdfFile = async (req, res) => {
   Models.Article.destroy({ where: { id: req.params.id } })
     .then((data) => {
       res.send({ result: 200, data: data });

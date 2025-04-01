@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const Controllers = require("../controllers");
+const { uploadFile } = require("../middleware/uploads");
 
 router.get("/", (req, res) => {
   Controllers.articleController.getArticles(res);
 });
 
-router.post("/create", (req, res) => {
+router.post("/create", uploadFile, (req, res) => {
   Controllers.articleController.createArticle(req.body, res);
 });
 
@@ -17,9 +18,5 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   Controllers.articleController.deleteArticle(req, res);
 });
-
-/*router.post("/:userId/pdf", uploadFile, (req, res) => {
-  Controllers.articleController.addPdfFile(req, res);
-}); */
 
 module.exports = router;
