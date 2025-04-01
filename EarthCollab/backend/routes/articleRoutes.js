@@ -18,8 +18,8 @@ router.delete("/:id", (req, res) => {
   Controllers.articleController.deleteArticle(req, res);
 });
 
-router.post("/:userId/pdf", uploadFile, (req, res) => {
+/*router.post("/:userId/pdf", uploadFile, (req, res) => {
   Controllers.articleController.addPdfFile(req, res);
-});
+}); */
 
 module.exports = router;

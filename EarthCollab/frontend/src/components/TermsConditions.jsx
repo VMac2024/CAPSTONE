@@ -17,7 +17,7 @@ export default function TermsConditions() {
       </p>
       <p>
         4. User Conduct When using the Platform, you agree to:
-        <ul>
+        <ol>
           {" "}
           <li>Use the Platform for lawful and ethical purposes only.</li>
           <li>Respect the intellectual property rights of others. </li>
@@ -26,7 +26,7 @@ export default function TermsConditions() {
             behavior towards others.{" "}
           </li>
           <li>Not use the Platform for unauthorized commercial activities. </li>
-        </ul>
+        </ol>
         <p> We reserve the right to remove content or terminate access if these rules are violated.</p>
       </p>
       <p>

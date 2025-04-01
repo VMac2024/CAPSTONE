@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useState } from "react";
 import { Container, CssBaseline, Box, TextField, Button } from "@mui/material";
-import { useUserContext } from "../context/userContext";
+//import { useUserContext } from "../context/userContext";
 
 // import user context - need to create first.
 
@@ -9,7 +9,7 @@ function PDFUpload() {
   const [file, setFile] = useState({ preview: "", data: "" });
   const [fileTitle, setFileTitle] = useState("");
   const [status, setStatus] = useState("");
-  const { currentUser, handleUpdateUser } = useUserContext();
+  //const { currentUser, handleUpdateUser } = useUserContext();
 
   //console.log(currentUser);
 
@@ -21,10 +21,10 @@ function PDFUpload() {
 
     //post form data to backend:
     try {
-      const response = await axios.post(`/api/users/${currentUser.id}/file`, formData);
+      const response = await axios.post(`/api/users/1/file`, formData); //${currentUser.id} (replace "1" with this when implementing usercontext & login requirements. )
       console.log(response.data);
       setStatus(response.data.result);
-      handleUpdateUser({ ...currentUser, ...response.data.data });
+      //handleUpdateUser({ ...currentUser, ...response.data.data });
     } catch (err) {
       setStatus(err.message);
     }
