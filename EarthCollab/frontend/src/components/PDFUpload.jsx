@@ -85,6 +85,7 @@ function PDFUpload() {
           id="articleCategory"
           value={Category}
           label="Category"
+          name="Category"
           onChange={(e) => setCategory(e.target.value)}
         >
           {categories.map((categories, index) => (
