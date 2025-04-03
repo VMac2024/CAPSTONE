@@ -22,7 +22,12 @@ const pages = [
   { link: "/events", label: "Events" },
   { link: "/about", label: "About" },
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = [
+  { link: "/profile", label: "Profile" },
+  { link: "/account", label: "Account" },
+  { link: "/dash", label: "Dashboard" },
+  { link: "/logout", label: "Logout" },
+];
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -152,8 +157,8 @@ function NavBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: "center" }}>{setting}</Typography>
+                <MenuItem key={setting.link} component={NavLink} to={setting.link}>
+                  <Typography sx={{ textAlign: "center" }}>{setting.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>

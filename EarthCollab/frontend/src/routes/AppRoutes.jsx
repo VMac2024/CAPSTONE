@@ -7,6 +7,7 @@ import ArticlesPage from "../pages/ArticlesPage";
 import Homepage from "../pages/HomePage";
 import { Post } from "../components/Post";
 import { PostList } from "../components/PostList";
+import DashboardPage, { ArticleUpload, CreatePost } from "../pages/Dashboard";
 
 function AppRoutes(props) {
   return (
@@ -18,10 +19,13 @@ function AppRoutes(props) {
         <Route path=":id" element={<Post />} />
       </Route>
       <Route path="/loginpage" element={<LoginPage {...props} />} />
-
       <Route path="/events" element={<EventPage {...props} />} />
       <Route path="/about" element={<AboutPage {...props} />} />
       <Route path="/articles" element={<ArticlesPage {...props} />} />
+      <Route path="/dash" element={<DashboardPage {...props} />}>
+        <Route path="articleUpload" element={<ArticleUpload />} />
+        <Route path="createPost" element={<CreatePost />} />
+      </Route>
     </Routes>
   );
 }
