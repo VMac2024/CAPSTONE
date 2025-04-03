@@ -6,12 +6,13 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import { CardMedia } from "@mui/material";
 
-export default function ArticleCard({ article }) {
+export default function PostCard({ post }) {
   const navigate = useNavigate();
 
   const handleViewDetails = () => {
-    navigate(`/article/${article.id}`, { state: { article } });
+    navigate(`/posts/${post.id}`, { state: { post } });
   };
   return (
     <Box sx={{ minWidth: 275 }}>
@@ -19,13 +20,14 @@ export default function ArticleCard({ article }) {
         <React.Fragment>
           <CardContent>
             <Typography gutterBottom sx={{ color: "text.secondary", fontSize: 14 }}>
-              {article.category}
+              {post.category}
             </Typography>
             <Typography variant="h5" component="div">
-              Title: {article.title}
+              Title: {post.title}
             </Typography>
+            <CardMedia component="img" height="140" image={post.image} alt={post.title} />
             <Typography sx={{ color: "text.secondary", mb: 1.5 }}>adjective</Typography>
-            <Typography variant="body2">{article.description}</Typography>
+            <Typography variant="body2">{post.content}</Typography>
           </CardContent>
           <CardActions>
             <Button size="small" onClick={handleViewDetails}>
