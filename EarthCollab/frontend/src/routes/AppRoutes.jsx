@@ -22,7 +22,7 @@ function AppRoutes(props) {
       <Route path="/events" element={<EventPage {...props} />} />
       <Route path="/about" element={<AboutPage {...props} />} />
       <Route path="/articles" element={<ArticlesPage {...props} />} />
-      <Route path="/dash" element={<DashboardPage {...props} />}>
+      <Route path="/dash/*" element={<DashboardPage {...props} />}>
         <Route path="articleUpload" element={<ArticleUpload />} />
         <Route path="createPost" element={<CreatePost />} />
       </Route>

@@ -1,10 +1,11 @@
 import { Button } from "@mui/material";
 import PDFUpload from "../components/PDFUpload";
 import { useUserContext } from "../context/userContext";
-import { Navigate } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 
 //NOTE: NAME OF WEB-PAGE STILL PENDING.
 export default function DashboardPage() {
+  const navigate = useNavigate();
   //const { currentUser } = useUserContext();
 
   /*if (!currentUser) {
@@ -14,8 +15,9 @@ export default function DashboardPage() {
     <>
       <div className="Dash">
         <h1>Dashboard</h1>
-        <Button onClick={() => Navigate("dash/ArticleUpload")}>Upload Article</Button>
-        <Button onClick={() => Navigate("dash/CreatePost")}>Create Post</Button>
+        <button onClick={() => navigate("/dash/articleUpload")}>Upload Article</button>
+        <button onClick={() => navigate("/dash/createPost")}>Create Post</button>
+        <Outlet />
       </div>
     </>
   );

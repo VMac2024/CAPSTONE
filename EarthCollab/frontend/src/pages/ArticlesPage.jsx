@@ -15,9 +15,8 @@ export default function ArticlesPage() {
         <h1>Eco Innovations Articles</h1>
       </div>
       <h3> Upload a PDF</h3>
-      <PDFUpload />
     </>
   );
 }
-
+// <PDFUpload />
 //<ArticleGrid />
