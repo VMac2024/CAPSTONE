@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import PDFUpload from "../components/PDFUpload";
 import { useUserContext } from "../context/userContext";
 import { useNavigate, Outlet } from "react-router-dom";
+import PostForm from "../components/PostForm";
 
 //NOTE: NAME OF WEB-PAGE STILL PENDING.
 export default function DashboardPage() {
