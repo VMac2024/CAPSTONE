@@ -13,8 +13,7 @@ const getUsers = (res) => {
     });
 };
 
-//Create new users:
-//CHECK CODE FOR CREATE NEW USER:
+//Create new users - Admin Route:
 const createUser = (data, res) => {
   Models.User.create(data)
     .then((data) => {
@@ -27,6 +26,41 @@ const createUser = (data, res) => {
 };
 
 //Create token: - see middleware - jsonwebtoken - see Jo's code.
+
+/*Create new user - ("registration") - public facing route.
+const createUser = async (req, res) => {
+  
+  try {
+    const { firstName, lastName, emailId, password, accessLevel, location, expertise } = req.body;
+
+    if (!(emailId && password && firstName && lastName && accessLevel && location && expertise)) {
+      return res.status(400).json({ result: "All fields must be completed" });
+    }
+
+    //check if already signed up:
+    const existingUser = await Models.User.findOne({ where: { emailId } });
+    if (existingUser) {
+      return res.status(409).json({ result: "User already exists. Please login" });
+    }
+    let encrytpedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = await Models.User.create({
+      firstName,
+      lastName,
+      emailId: emailId.toLowerCase(),
+      password: encrytpedPassword,
+      accessLevel,
+      location,
+      expertise,
+    });
+    const user = newUser.get({ plain: true });
+
+    return res.status(201).json({ result: "New user registered", data: user });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ result: err.message });
+  }
+};*/
 
 //update users:
 const updateUser = (req, res) => {
@@ -53,9 +87,6 @@ const deleteUser = (req, res) => {
 };
 
 //CREATE USER TOKEN WITH TIMEOUT LIMIT.
-//CHECK THAT THE USER DOESN'T ALREADY HAVE AN ACCOUNT - IF THEY ALREADY HAVE ONE, THEY ARE GIVEN AN ERROR. IF NOT, THEN THEY PROCEED WITH REGISTERING.
-//bcrypt.js - npm  install bcrypt.js.
-//convert emails to lowercase.
 
 module.exports = {
   getUsers,

@@ -10,6 +10,7 @@ dotenv.config({ path: `./.env.${environment}` });
 let dbConnect = require("./dbConnect");
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 let userRoutes = require("./routes/userRoutes");
 app.use("/api/user", userRoutes);
