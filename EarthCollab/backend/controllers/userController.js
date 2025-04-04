@@ -1,5 +1,6 @@
 "use strict";
 const Models = require("../models");
+const bcrypt = require("bcryptjs");
 
 //Find all users:
 const getUsers = (res) => {
@@ -14,7 +15,7 @@ const getUsers = (res) => {
 };
 
 //Create new users - Admin Route:
-const createUser = (data, res) => {
+/*const createUser = (data, res) => {
   Models.User.create(data)
     .then((data) => {
       res.send({ result: 200, data: data });
@@ -23,13 +24,12 @@ const createUser = (data, res) => {
       console.log(err);
       res.send({ result: 500, error: err.message });
     });
-};
+};*/
 
 //Create token: - see middleware - jsonwebtoken - see Jo's code.
 
-/*Create new user - ("registration") - public facing route.
+//Create new user - ("registration") - public facing route.
 const createUser = async (req, res) => {
-  
   try {
     const { firstName, lastName, emailId, password, accessLevel, location, expertise } = req.body;
 
@@ -60,7 +60,7 @@ const createUser = async (req, res) => {
     console.log(err);
     return res.status(500).json({ result: err.message });
   }
-};*/
+};
 
 //update users:
 const updateUser = (req, res) => {

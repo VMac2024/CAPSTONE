@@ -48,7 +48,7 @@ function PDFUpload() {
 
     let formData = new FormData();
     formData.append("file", file.data); //check if this has a naming convention?
-    formData.append("title", file.title);
+    formData.append("title", form.title);
     formData.append("description", form.description);
     formData.append("category", form.category);
 

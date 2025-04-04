@@ -7,8 +7,8 @@ router.get("/", (req, res) => {
   Controllers.articleController.getArticles(res);
 });
 
-router.post("/create", uploadFile.single("file"), (req, res) => {
-  Controllers.articleController.createArticle(req.body, req.file, res);
+router.post("/create", uploadFile, (req, res) => {
+  Controllers.articleController.createArticle(req, res);
 });
 
 router.put("/:id", (req, res) => {

@@ -17,9 +17,10 @@ const getArticles = (res) => {
 //Create new articles:
 //CHECK CODE FOR CREATE NEW ARTICLE:
 const createArticle = (req, res) => {
+  console.log(req.body); //check body data.
   console.log(req.file); //check file name.
   const { title, description, category } = req.body;
-  const pdfLink = { pdfLink: "/pdfs/" + req.file.filename };
+  const pdfLink = "/public/pdfs/" + req.file.filename;
   Models.Article.create({
     title,
     pdfLink,

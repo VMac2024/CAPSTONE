@@ -6,41 +6,12 @@ import { Container, CssBaseline, Box, TextField, Button, Select, MenuItem } from
 // import user context - need to create first.
 
 function PostForm() {
-  const [post, setPost] = useState({ preview: "", data: "" });
-  const [postTitle, setPostTitle] = useState("");
-  const [postContent, setPostContent] = useState("");
-  const [image, setImage] = useState("");
+  const [form, setForm] = useState({ title: "", content: "", category: "" });
+  const [image, setImage] = useState({ preview: "", data: "" });
   const [status, setStatus] = useState("");
   //const { currentUser, handleUpdateUser } = useUserContext();
 
   //console.log(currentUser);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault(); //prevent defaul form action from taking effect until submitted.
-    let formData = new FormData();
-    formData.append("post", post.data); //check if this has a naming convention?
-    formData.append("postTitle", postTitle);
-    formData.append("postContent", postContent);
-
-    //post form data to backend:
-    try {
-      const response = await axios.post(`/api/upload`, formData); //${currentUser.id} (replace "1" with this when implementing usercontext & login requirements. )
-      console.log(response.data);
-      setStatus(response.data.result);
-      //handleUpdateUser({ ...currentUser, ...response.data.data });
-    } catch (err) {
-      setStatus(err.message);
-    }
-  };
-
-  const handleFileChange = (e) => {
-    console.log(e.target.files[0]);
-    const image = {
-      preview: URL.createObjectURL(e.target.files[0]),
-      data: e.target.files[0],
-    };
-    setPostImage(image);
-  };
 
   const categories = [
     "Agriculture",
@@ -62,6 +33,41 @@ function PostForm() {
   ];
   const [Category, setCategory] = useState("");
 
+  const handleSubmit = async (e) => {
+    e.preventDefault(); //prevent defaul form action from taking effect until submitted.
+
+    if (!file.data) {
+      setStatus("Please add file to upload");
+      return;
+    }
+
+    let formData = new FormData();
+    formData.append("post", post.data); //check if this has a naming convention?
+    formData.append("title", form.title);
+    formData.append("content", form.content);
+    formData.append("category", form.category);
+
+    //post form data to backend:
+    try {
+      const response = await axios.post(`/api/post/create`, formData); //${currentUser.id} (replace "1" with this when implementing usercontext & login requirements. )
+      console.log(response.data);
+      setStatus(response.data.result);
+      //handleUpdateUser({ ...currentUser, ...response.data.data });
+    } catch (err) {
+      setStatus(err.message);
+      setStatus("Error, could not upload file: " + err.message);
+    }
+  };
+
+  const handleFileChange = (e) => {
+    console.log(e.target.files[0]);
+    const image = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
+    };
+    setImage(image);
+  };
+
   return (
     <Container component="main" maxWidth="sx">
       <CssBaseline />
@@ -76,24 +82,24 @@ function PostForm() {
           margin="normal"
           required
           fullWidth
-          id="postTitle"
+          id="title"
           autoFocus
-          label="post Title"
-          name="postTitle"
-          value={postTitle}
-          onChange={(e) => setPostTitle(e.target.value)}
+          label="Post Title"
+          name="title"
+          value={form.title}
+          onChange={(e) => setForm({ ...form, title: e.target.value })}
         />
         <Select
-          labelId="articleCategory"
-          id="articleCategory"
+          labelId="category"
+          id="categoyr"
           value={Category}
           label="Category"
           name="Category"
           onChange={(e) => setCategory(e.target.value)}
         >
-          {categories.map((categories, index) => (
-            <MenuItem key={index} value={categories}>
-              {categories}
+          {categories.map((category, index) => (
+            <MenuItem key={index} value={category}>
+              {category}
             </MenuItem>
           ))}
         </Select>
@@ -101,12 +107,12 @@ function PostForm() {
           margin="normal"
           required
           fullWidth
-          id="postContent"
+          id="content"
           autoFocus
-          label="post content"
-          name="postContent"
-          value={postContent}
-          onChange={(e) => setPostContent(e.target.value)}
+          label="Post Content"
+          name="content"
+          value={form.content}
+          onChange={(e) => setForm({ ...form, description: e.target.value })}
         />
         {image.preview && <img src={image.preview} width="100" height="100" />}
         <input name="image" type="file" onChange={handleFileChange} />
