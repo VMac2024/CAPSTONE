@@ -19,7 +19,7 @@ const getArticles = (res) => {
 const createArticle = (req, res) => {
   console.log(req.file); //check file name.
   const { title, description, category } = req.body;
-  const pdfLink = { pdfLink: "/uploads/" + req.file.filename };
+  const pdfLink = { pdfLink: "/pdfs/" + req.file.filename };
   Models.Article.create({
     title,
     pdfLink,
