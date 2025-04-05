@@ -15,8 +15,17 @@ const getPosts = (res) => {
 
 //Create new posts:
 //CHECK CODE FOR CREATE NEW POST:
-const createPost = (data, res) => {
-  Models.Post.create(data)
+const createPost = (req, res) => {
+  console.log(req.body);
+  console.log(req.file);
+  const { title, content, category } = req.body;
+  const image = "/public/images/" + req.file.filename;
+  Models.Post.create({
+    title,
+    content,
+    image,
+    category,
+  })
     .then((data) => {
       res.send({ result: 200, data: data });
     })

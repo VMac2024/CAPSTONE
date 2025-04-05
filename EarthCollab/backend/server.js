@@ -23,7 +23,7 @@ app.use("/api/article", articleRoutes);
 let commentRoutes = require("./routes/commentRoutes");
 app.use("/api/comment", commentRoutes);
 
-let postRoutes = require("./routes/postRoutes");
+let postRoutes = require("./routes/PostRoutes"); //check - is refusing a LC "p".
 app.use("/api/post", postRoutes);
 
 let projectRoutes = require("./routes/projectRoutes");
