@@ -32,7 +32,7 @@ function PDFUpload() {
     "Water",
     "Wildlife",
   ];
-  const [Category, setCategory] = useState("");
+  const [category, setCategory] = useState("");
 
   //const { currentUser, handleUpdateUser } = useUserContext();
 
@@ -50,7 +50,7 @@ function PDFUpload() {
     formData.append("file", file.data); //check if this has a naming convention?
     formData.append("title", form.title);
     formData.append("description", form.description);
-    formData.append("category", form.category);
+    formData.append("category", category);
 
     //post form data to backend:
     try {
@@ -71,6 +71,10 @@ function PDFUpload() {
       data: e.target.files[0],
     };
     setFile(pdf);
+  };
+
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
   };
 
   return (
@@ -94,14 +98,7 @@ function PDFUpload() {
           value={form.title}
           onChange={(e) => setForm({ ...form, title: e.target.value })}
         />
-        <Select
-          labelId="category"
-          id="category"
-          value={Category}
-          label="Category"
-          name="category"
-          onChange={(e) => setCategory(e.target.value)}
-        >
+        <Select labelId="category" id="category" value={category} label="Category" name="category" onChange={handleCategoryChange}>
           {categories.map((category, index) => (
             <MenuItem key={index} value={category}>
               {category}

@@ -26,7 +26,6 @@ export default function PostCard({ post }) {
               Title: {post.title}
             </Typography>
             <CardMedia component="img" height="140" image={post.image} alt={post.title} />
-            <Typography sx={{ color: "text.secondary", mb: 1.5 }}>adjective</Typography>
             <Typography variant="body2">{post.content}</Typography>
           </CardContent>
           <CardActions>

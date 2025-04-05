@@ -31,21 +31,21 @@ function PostForm() {
     "Water",
     "Wildlife",
   ];
-  const [Category, setCategory] = useState("");
+  const [category, setCategory] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault(); //prevent defaul form action from taking effect until submitted.
 
-    if (!file.data) {
+    if (!image.data) {
       setStatus("Please add file to upload");
       return;
     }
 
     let formData = new FormData();
-    formData.append("post", post.data); //check if this has a naming convention?
+    formData.append("image", image.data); //check if this has a naming convention?
     formData.append("title", form.title);
     formData.append("content", form.content);
-    formData.append("category", form.category);
+    formData.append("category", category);
 
     //post form data to backend:
     try {
@@ -67,7 +67,9 @@ function PostForm() {
     };
     setImage(image);
   };
-
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
+  };
   return (
     <Container component="main" maxWidth="sx">
       <CssBaseline />
@@ -89,14 +91,7 @@ function PostForm() {
           value={form.title}
           onChange={(e) => setForm({ ...form, title: e.target.value })}
         />
-        <Select
-          labelId="category"
-          id="categoyr"
-          value={Category}
-          label="Category"
-          name="Category"
-          onChange={(e) => setCategory(e.target.value)}
-        >
+        <Select labelId="category" id="category" value={category} label="Category" name="category" onChange={handleCategoryChange}>
           {categories.map((category, index) => (
             <MenuItem key={index} value={category}>
               {category}
@@ -112,7 +107,7 @@ function PostForm() {
           label="Post Content"
           name="content"
           value={form.content}
-          onChange={(e) => setForm({ ...form, description: e.target.value })}
+          onChange={(e) => setForm({ ...form, content: e.target.value })}
         />
         {image.preview && <img src={image.preview} width="100" height="100" />}
         <input name="image" type="file" onChange={handleFileChange} />

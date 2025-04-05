@@ -1,19 +1,25 @@
 import { Grid2 } from "@mui/material";
 import ArticleCard from "./ArticleCards";
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useData } from "../hooks/useData";
+import axios from "axios";
 
 const itemsPerPage = 12;
 
 export default function ArticleGrid({ pdfs = [] }) {
+  const { loading, data, error } = useData("/api/article", []);
+  const articles = data.data ? data.data : data;
+  console.log(articles);
+  const [message, setMessage] = useState("");
+
+  const [currentArticles, setCurrentArticles] = useState(articles);
+
+  const articleList = articles.map((article) => <ArticleCard key={article.id} article={article} />);
+
   return (
     <>
-      <Grid2 container spacing={2} my={2} sx={{ marginTop: "80px" }}>
-        {pdfs.map((pdf, index) => (
-          <Grid2 item key={index} size xs={12} sm={6} md={3}>
-            <ArticleCard title={pdf.title} pdfUrl={pdf.url} />
-          </Grid2>
-        ))}
+      <Grid2 container spacing={2} size={{ xs: 12, sm: 6, md: 3 }}>
+        {articleList}
       </Grid2>
     </>
   );

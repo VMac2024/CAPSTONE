@@ -15,7 +15,7 @@ export default function ArticleCard({ article }) {
   };
   return (
     <Box sx={{ minWidth: 275 }}>
-      <Card variant="outlined">
+      <Card variant="outlined" sx={{ minWidth: 275 }}>
         <React.Fragment>
           <CardContent>
             <Typography gutterBottom sx={{ color: "text.secondary", fontSize: 14 }}>
@@ -24,7 +24,6 @@ export default function ArticleCard({ article }) {
             <Typography variant="h5" component="div">
               Title: {article.title}
             </Typography>
-            <Typography sx={{ color: "text.secondary", mb: 1.5 }}>adjective</Typography>
             <Typography variant="body2">{article.description}</Typography>
           </CardContent>
           <CardActions>
