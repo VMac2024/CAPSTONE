@@ -19,7 +19,7 @@ const createPost = (req, res) => {
   console.log(req.body);
   console.log(req.file);
   const { title, content, category } = req.body;
-  const image = "/public/images/" + req.file.filename;
+  const image = "/images/" + req.file.filename;
   Models.Post.create({
     title,
     content,

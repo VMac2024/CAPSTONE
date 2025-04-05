@@ -11,7 +11,7 @@ let dbConnect = require("./dbConnect");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/images", express.static("public/images"));
+app.use("/images", express.static("/images"));
 app.use("/pdfs", express.static("public/pdfs"));
 
 let userRoutes = require("./routes/userRoutes");

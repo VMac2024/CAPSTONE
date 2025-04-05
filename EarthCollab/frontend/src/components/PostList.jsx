@@ -1,27 +1,34 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { useData } from "../hooks/useData";
+import PostCard from "./PostCard";
+import { useEffect, useReducer, useState } from "react";
+import { Grid2 } from "@mui/material";
 
 //include search function
 export function PostList() {
   const [searchParams, setSearchParams] = useSearchParams();
   const limit = searchParams.get("limit") ? searchParams.get("limit") : 5;
-  const postsData = useData("https://jsonplaceholder.typicode.com/posts?_limit=5"); //change to api/posts.. Placeholder used initially for setup.
-  // the ? means only call map if postsData is not null
+
+  const { loading, data, error } = useData("api/post", []);
+
+  const posts = data.data ? data.data : data;
+  console.log(posts);
+
+  const [message, setMessage] = useState("");
+
+  const [currentPosts, setCurrentPosts] = useState(posts);
+
+  const postList = posts.map((post) => <PostCard key={post.id} post={post} />);
 
   const handleChangeLimit = (e) => {
     setSearchParams({ limit: e.target.value });
   };
 
-  const postList = postsData?.map((post) => (
-    <li key={post.id}>
-      <Link to={"/posts/" + post.id}>
-        Post #{post.id}: {post.title}
-      </Link>
-    </li>
-  ));
   return (
     <>
-      <ul>{postList}</ul>
+      <Grid2 container spacing={2} size={{ xs: 12, sm: 6, md: 3 }}>
+        {postList}
+      </Grid2>
       <label>
         Show number of posts:
         <select onChange={handleChangeLimit}>

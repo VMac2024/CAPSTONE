@@ -19,13 +19,13 @@ export default function PostCard({ post }) {
       <Card variant="outlined">
         <React.Fragment>
           <CardContent>
+            {post.image && <CardMedia component="img" height={140} image={post.image} alt={post.title} />}
             <Typography gutterBottom sx={{ color: "text.secondary", fontSize: 14 }}>
               {post.category}
             </Typography>
             <Typography variant="h5" component="div">
               Title: {post.title}
             </Typography>
-            <CardMedia component="img" height="140" image={post.image} alt={post.title} />
             <Typography variant="body2">{post.content}</Typography>
           </CardContent>
           <CardActions>
