@@ -1,6 +1,6 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
-import { Box, Container, Button, CssBaseline } from "@mui/material";
+import { Box, Container, Button, CssBaseline, Typography } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -47,14 +47,15 @@ function SignUpForm() {
   };
 
   return (
-    <Container component="main" maxWidth="sx">
+    <Container component="main" maxWidth="md">
       <CssBaseline />
       <Box
         component="form"
         onSubmit={handleSubmit}
         noValidate
-        sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}
+        sm={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}
       >
+        <Typography>Sign Up</Typography>
         <TextField
           label="First Name"
           name="firstName"

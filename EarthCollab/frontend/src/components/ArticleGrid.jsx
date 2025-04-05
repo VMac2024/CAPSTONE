@@ -1,4 +1,4 @@
-import { Grid2 } from "@mui/material";
+import { Container, CssBaseline, FormControl, Grid2, InputLabel, MenuItem, Select } from "@mui/material";
 import ArticleCard from "./ArticleCards";
 import { useEffect, useReducer, useState } from "react";
 import { useData } from "../hooks/useData";
@@ -16,11 +16,30 @@ export default function ArticleGrid({ pdfs = [] }) {
 
   const articleList = articles.map((article) => <ArticleCard key={article.id} article={article} />);
 
+  const categories = ["All", ...new Set(articles.map((articles) => articles.category))];
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const filteredArticles = selectedCategory === "All" ? articles : articles.filter((article) => article.category === selectedCategory);
+
   return (
     <>
-      <Grid2 container spacing={2} size={{ xs: 12, sm: 6, md: 3 }}>
-        {articleList}
-      </Grid2>
+      <Container>
+        <CssBaseline />
+        <FormControl fullWidth sx={{ mb: 3 }}>
+          <InputLabel>Category</InputLabel>
+          <Select
+            name="filterCategory"
+            label="Filter by Category"
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >
+            <MenuItem key={category} value={category}></MenuItem>
+          </Select>
+        </FormControl>
+        <Grid2 container spacing={2} size={{ xs: 12, sm: 6, md: 3 }}>
+          {articleList}
+        </Grid2>
+      </Container>
     </>
   );
 }

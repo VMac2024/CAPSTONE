@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Container, TextField, Button, Typography, Box, CssBaseline } from "@mui/material";
 import { useUserContext } from "../context/userContext";
+import { Form } from "react-router-dom";
 
 function LoginForm() {
   // input state values always need to be strings - empty initially
@@ -46,7 +47,25 @@ function LoginForm() {
     ); //return welcome message if login is successful.
 
   return (
-    <div className="LoginForm componentBox">
+    <Container component="main" maxWidth="md">
+      <CssBaseline />
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}
+      >
+        <Typography variant="h3" align="center">
+          Login
+        </Typography>
+        <TextField label="email" name="email" type="email" value={form.email} onChange={handleChange} required fullWidth />
+        <TextField label="password" name="password" type="password" value={form.password} onChange={handleChange} required fullWidth />
+        <Button type="submit" variant="contained" fullWidth>
+          Sign In
+        </Button>
+      </Box>
+    </Container>
+
+    /* 
       {loginAttempts < 5 ? (
         <form onSubmit={handleSubmit}>
           <div className="formRow">
@@ -73,7 +92,7 @@ function LoginForm() {
           <p>{submitResult}</p>
         </form>
       ) : null}
-    </div>
+    </div>*/
   );
 }
 
