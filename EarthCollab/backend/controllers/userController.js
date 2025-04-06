@@ -1,4 +1,5 @@
 "use strict";
+const { createToken } = require("../middleware/auth");
 const Models = require("../models");
 const bcrypt = require("bcryptjs");
 
@@ -31,9 +32,9 @@ const getUsers = (res) => {
 //Create new user - ("registration") - public facing route.
 const createUser = async (req, res) => {
   try {
-    const { firstName, lastName, emailId, password, accessLevel, location, expertise } = req.body;
+    const { firstName, lastName, emailId, password, location, expertise } = req.body;
 
-    if (!(emailId && password && firstName && lastName && accessLevel && location && expertise)) {
+    if (!(emailId && password && firstName && lastName && location && expertise)) {
       return res.status(400).json({ result: "All fields must be completed" });
     }
 
@@ -42,6 +43,17 @@ const createUser = async (req, res) => {
     if (existingUser) {
       return res.status(409).json({ result: "User already exists. Please login" });
     }
+
+    const accessMap = {
+      Enthusiast: "User",
+      Professional: "Contributor",
+    };
+
+    const accessLevel = accessMap[expertise];
+    if (!accessLevel) {
+      return res.status(400).json({ result: "Invalid expertise level" });
+    }
+
     let encrytpedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await Models.User.create({
@@ -56,6 +68,31 @@ const createUser = async (req, res) => {
     const user = newUser.get({ plain: true });
 
     return res.status(201).json({ result: "New user registered", data: user });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ result: err.message });
+  }
+};
+
+//Login users:
+const loginUser = async (req, res) => {
+  try {
+    //obtain user input from frontend:
+    const { emailId, password } = req.body;
+
+    if (!(emailId && password)) {
+      return res.status(400).json({ result: "Both Email and Password required " });
+    }
+
+    const user = await Models.user.findOne({ raw: true, where: { emailId: emailId } });
+
+    if (user && (await bcrypt.compare(password, user.password))) {
+      const token = createToken(user.id, emailId);
+      user.token = token;
+      console.log(user);
+
+      return res.status(200).json({ result: "User logged in", data: user });
+    } else return res.status(400).json({ result: "Invalid user credentials" });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ result: err.message });
@@ -91,6 +128,7 @@ const deleteUser = (req, res) => {
 module.exports = {
   getUsers,
   createUser,
+  loginUser,
   updateUser,
   deleteUser,
 };

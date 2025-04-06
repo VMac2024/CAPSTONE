@@ -7,25 +7,22 @@ import axios from "axios";
 const itemsPerPage = 12;
 
 export default function ArticleGrid({ pdfs = [] }) {
-  const { loading, data, error } = useData("/api/article", []);
+  const { data } = useData("/api/article", []);
   const articles = data.data ? data.data : data;
   console.log(articles);
   const [message, setMessage] = useState("");
-
   const [currentArticles, setCurrentArticles] = useState(articles);
-
-  const articleList = articles.map((article) => <ArticleCard key={article.id} article={article} />);
-
   const categories = ["All", ...new Set(articles.map((articles) => articles.category))];
   const [selectedCategory, setSelectedCategory] = useState("All");
-
   const filteredArticles = selectedCategory === "All" ? articles : articles.filter((article) => article.category === selectedCategory);
+
+  const articleList = filteredArticles.map((article) => <ArticleCard key={article.id} article={article} />);
 
   return (
     <>
       <Container>
         <CssBaseline />
-        <FormControl fullWidth sx={{ mb: 3 }}>
+        <FormControl fullWidth sx={{ mb: 3, width: 200 }}>
           <InputLabel>Category</InputLabel>
           <Select
             name="filterCategory"
@@ -33,7 +30,11 @@ export default function ArticleGrid({ pdfs = [] }) {
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
           >
-            <MenuItem key={category} value={category}></MenuItem>
+            {categories.map((category) => (
+              <MenuItem key={category} value={category}>
+                {category}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
         <Grid2 container spacing={2} size={{ xs: 12, sm: 6, md: 3 }}>
