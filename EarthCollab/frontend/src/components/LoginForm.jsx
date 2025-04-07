@@ -2,7 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { Container, TextField, Button, Typography, Box, CssBaseline, Link } from "@mui/material";
 import { useUserContext } from "../context/userContext";
-import { Form } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom"; //https://v5.reactrouter.com/web/api/Link
+import axios from "axios";
 
 function LoginForm() {
   // input state values always need to be strings - empty initially
@@ -19,8 +20,25 @@ function LoginForm() {
 
   const isLoggedIn = submitResult === "Successful login."; //establish constant that if submitResult returns this result, the person is "logged in" and triggers the below functions to hide teh
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post("/api/user/login", {
+        emailId: userEmail,
+        password: userPassword,
+      });
+
+      if (response.data.success) {
+        handleUpdateUser(response.data.user);
+        setSubmitResult("Successful Login.");
+      } else {
+        setSubmitResult(response.data.message || "Login failed");
+      }
+    } catch (error) {
+      console.error("Login error: ", error);
+    }
+    setSubmitResult("Error - Could not contact server");
   };
 
   if (loginAttempts >= 5) return <p>Too many login attempts. Your account it temporarily suspended.</p>; //counts login attempts and if more than 5, then will link to direction to hide form and suspend account.
@@ -44,7 +62,10 @@ function LoginForm() {
           Login
         </Typography>
         <Typography>
-          Not yet signed up? <Link to="/SignUpForm"> SIGN UP</Link>
+          Not yet signed up?
+          <Link component={RouterLink} to="SignUpForm">
+            SIGN UP
+          </Link>
         </Typography>
         <TextField
           label="email"

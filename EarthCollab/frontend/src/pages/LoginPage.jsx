@@ -5,7 +5,7 @@ import SignUpForm from "../components/SignUpForm";
 export default function LoginPage() {
   return (
     <div className="LoginPage">
-      <LoginForm />
+      <Outlet />
     </div>
   );
 }

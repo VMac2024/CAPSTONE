@@ -19,7 +19,7 @@ const pages = [
   { link: "/loginpage", label: "Login" },
   { link: "/posts", label: "Posts" },
   { link: "/articles", label: "Articles" },
-  { link: "/events", label: "Events" },
+  { link: "/projects", label: "Projects" },
   { link: "/about", label: "About" },
 ];
 const settings = [

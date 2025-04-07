@@ -35,12 +35,12 @@ const ExpandMore = styled((props) => {
   ],
 }));
 
-export default function PostCard({ post, user, onDelete }) {
+export default function ProjectCard({ project, user, onDelete }) {
   const navigate = useNavigate();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleViewDetails = () => {
-    navigate(`/posts/${post.id}`, { state: { post } });
+    navigate(`/posts/${project.id}`, { state: { project } });
   };
 
   const handleExpandClick = () => {
@@ -52,14 +52,14 @@ export default function PostCard({ post, user, onDelete }) {
       <Card variant="outlined">
         <React.Fragment>
           <CardContent>
-            {post.image && <CardMedia component="img" height={140} image={post.image} alt={post.title} />}
+            {project.image && <CardMedia component="img" height={140} image={project.image} alt={project.title} />}
             <Typography gutterBottom sx={{ color: "text.secondary", fontSize: 14 }}>
-              {post.category}
+              {project.category}
             </Typography>
             <Typography variant="h5" component="div">
-              Title: {post.title}
+              Title: {project.title}
             </Typography>
-            <Typography variant="body2">{post.content}</Typography>
+            <Typography variant="body2">{project.content}</Typography>
           </CardContent>
           <CardActions>
             <Button size="small" onClick={handleViewDetails}>

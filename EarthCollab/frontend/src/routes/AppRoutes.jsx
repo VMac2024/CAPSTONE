@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import PostPage from "../pages/PostPage";
-import EventPage from "../pages/EventPage";
 import AboutPage from "../pages/AboutPage";
 import ArticlesPage from "../pages/ArticlesPage";
 import Homepage from "../pages/HomePage";
@@ -10,6 +9,7 @@ import { PostList } from "../components/PostList";
 import DashboardPage, { ArticleUpload, CreatePost } from "../pages/Dashboard";
 import LoginForm from "../components/LoginForm";
 import SignUpForm from "../components/SignUpForm";
+import ProjectPage from "../pages/ProjectPage";
 
 function AppRoutes(props) {
   return (
@@ -20,11 +20,11 @@ function AppRoutes(props) {
         {/* dynamic param taken from route, stored in variable called id */}
         <Route path=":id" element={<Post />} />
       </Route>
-      <Route path="/loginpage" element={<LoginPage {...props} />}>
+      <Route path="/loginpage/*" element={<LoginPage {...props} />}>
         <Route index element={<LoginForm />} />
         <Route path="SignUpForm" element={<SignUpForm />} />
       </Route>
-      <Route path="/events" element={<EventPage {...props} />} />
+      <Route path="/projects" element={<ProjectPage {...props} />} />
       <Route path="/about" element={<AboutPage {...props} />} />
       <Route path="/articles" element={<ArticlesPage {...props} />} />
       <Route path="/dash/*" element={<DashboardPage {...props} />}>

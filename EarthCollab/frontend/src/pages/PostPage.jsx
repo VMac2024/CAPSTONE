@@ -9,6 +9,7 @@ export default function PostPage() {
       <div className="PostPage">
         <h1>GreenEarth Posts</h1>
       </div>
+      <button onClick={() => navigate("/dash/createPost")}>Create Post</button>
       <Outlet />
     </>
   );

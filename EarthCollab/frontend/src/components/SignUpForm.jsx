@@ -4,6 +4,7 @@ import { Box, Container, Button, CssBaseline, Typography, Select, MenuItem, Link
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 function SignUpForm() {
   const [form, setForm] = useState({
@@ -33,17 +34,17 @@ function SignUpForm() {
     event.preventDefault();
     //  const data = new FormData(event.currentTarget);
 
-    let formData = new FormData();
+    let data = new FormData();
 
-    formData.append("firstName", form.firstName);
-    formData.append("emailId", form.emailId);
-    formData.append("password", form.password);
-    formData.append("location", form.location);
-    formData.append("expertise", expertise);
+    data.append("firstName", form.firstName);
+    data.append("emailId", form.emailId);
+    data.append("password", form.password);
+    data.append("location", form.location);
+    data.append("expertise", expertise);
     //  accessLevel: "",
 
     axios
-      .post(`/api/user/create`, formData)
+      .post(`/api/user/create`, data)
       .then((response) => {
         let result = response.data.result;
         let user = response.data.data;
@@ -62,6 +63,12 @@ function SignUpForm() {
 
   return (
     <>
+      <Typography variant="h3" align="center">
+        Sign Up
+      </Typography>
+      <Typography>
+        Already signed up? <button onClick={() => navigate(-1)}>Go Back</button>
+      </Typography>
       <Container component="main" maxWidth="md">
         <CssBaseline />
 
@@ -71,12 +78,6 @@ function SignUpForm() {
           noValidate
           sm={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}
         >
-          <Typography variant="h3" align="center">
-            Sign Up
-          </Typography>
-          <Typography>
-            Already signed up? <Link to="/loginForm">LOG IN HERE</Link>
-          </Typography>
           <TextField
             label="First Name"
             name="firstName"
@@ -105,7 +106,7 @@ function SignUpForm() {
             margin="normal"
           />
 
-          <Select labelId="expertise" label="Expertise" name="expertise" value={expertise} onChange={handleExpertiseChange}>
+          <Select labelId="expertise" fullWidth label="Expertise" name="expertise" value={expertise} onChange={handleExpertiseChange}>
             {expertiseLevel.map((level, index) => (
               <MenuItem key={index} value={level}>
                 {level}

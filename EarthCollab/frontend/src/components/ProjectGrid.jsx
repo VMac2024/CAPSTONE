@@ -1,6 +1,6 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { useData } from "../hooks/useData";
-import PostCard from "./PostCard";
+import ProjectCard from "./ProjectCard";
 import { useEffect, useReducer, useState } from "react";
 import { Grid2, Container, CssBaseline, FormControl, InputLabel, Select, MenuItem, TextField } from "@mui/material";
 import { useDeleteHook } from "../hooks/deleteHook";
@@ -9,30 +9,22 @@ export function PostList() {
   const [searchParams, setSearchParams] = useSearchParams();
   const limit = searchParams.get("limit") ? searchParams.get("limit") : 5;
 
-  const { loading, data, error } = useData("api/post", []);
+  const { loading, data, error } = useData("api/project", []);
   const { deleteHook } = useDeleteHook();
 
   const posts = data.data ? data.data : data;
-  console.log(posts);
+  console.log(projects);
 
   //const [message, setMessage] = useState("");
   //const [currentPosts, setCurrentPosts] = useState(posts);
 
   const [deletedPosts, setDeletedPosts] = useState([]);
 
-  const categories = ["All", ...new Set(posts.map((posts) => posts.category))];
+  const categories = ["All", ...new Set(projects.map((posts) => projects.category))];
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const filteredPosts = posts
-    .filter((post) => !deletedPosts.includes(post.id))
-    .filter((post) => (selectedCategory === "All" ? posts : posts.filter((post) => post.category === selectedCategory)));
-
-  /*const postList = posts.map((post) => (
-    <PostCard
-      key={post.id}
-      post={post}
-      onDelete={() => deleteHook("api/post", post.id, () => setCurrentPosts((prev) => prev.filter((p) => p.id !== post.id)))}
-    />
-  ));*/
+  const filteredProjects = projects
+    .filter((project) => !deletedPosts.includes(project.id))
+    .filter((project) => (selectedCategory === "All" ? projects : projects.filter((project) => project.category === selectedCategory)));
 
   const handleChangeCategory = (e) => {
     setSelectedCategory({ limit: e.target.value });
@@ -57,13 +49,13 @@ export function PostList() {
           </Select>
         </FormControl>
         <Grid2 container spacing={2} size={{ xs: 12, sm: 6, md: 3 }}>
-          {filteredPosts.map((post) => (
+          {filteredProjects.map((project) => (
             <PostCard
-              key={post.id}
-              post={post}
+              key={project.id}
+              project={project}
               onDelete={() =>
-                deleteHook("api/post", post.id, () => {
-                  setDeletedPosts((prev) => [...prev, post.id]);
+                deleteHook("api/project", project.id, () => {
+                  setDeletedPosts((prev) => [...prev, project.id]);
                 })
               }
             />
@@ -81,11 +73,3 @@ export function PostList() {
     </>
   );
 }
-
-/*  const postList = postsData?.map((post) => (
-    <li key={post.id}>
-      <Link to={"/posts/" + post.id}> 
-        Post #{post.id}: {post.title}
-      </Link>
-    </li>
-  )); */
