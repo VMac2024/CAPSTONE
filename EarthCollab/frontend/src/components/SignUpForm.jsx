@@ -13,10 +13,11 @@ function SignUpForm() {
     emailId: "",
     password: "",
     location: "",
+    expertise: "",
   });
 
   const expertiseLevel = ["Enthusiast", "Professional"];
-  const [expertise, setExpertise] = useState("");
+  //const [expertise, setExpertise] = useState("");
 
   const [result, setResult] = useState("");
 
@@ -27,24 +28,24 @@ function SignUpForm() {
   };
 
   const handleExpertiseChange = (e) => {
-    setExpertise(e.target.value);
+    setForm({ ...form, expertise: e.target.value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     //  const data = new FormData(event.currentTarget);
 
-    let data = new FormData();
+    /* let data = new FormData();
 
     data.append("firstName", form.firstName);
     data.append("emailId", form.emailId);
     data.append("password", form.password);
     data.append("location", form.location);
     data.append("expertise", expertise);
-    //  accessLevel: "",
+    //  accessLevel: "",*/
 
     axios
-      .post(`/api/user/create`, data)
+      .post(`/api/user/create`, form)
       .then((response) => {
         let result = response.data.result;
         let user = response.data.data;
@@ -107,7 +108,14 @@ function SignUpForm() {
           />
           <FormControl fullWidth variant="outlined">
             <InputLabel id="expertise">Environmental Expertise?</InputLabel>
-            <Select labelId="expertise" fullWidth label="Expertise" name="expertise" value={expertise} onChange={handleExpertiseChange}>
+            <Select
+              labelId="expertise"
+              fullWidth
+              label="Expertise"
+              name="expertise"
+              value={form.expertise}
+              onChange={handleExpertiseChange}
+            >
               {expertiseLevel.map((level, index) => (
                 <MenuItem key={index} value={level}>
                   {level}
@@ -127,6 +135,7 @@ function SignUpForm() {
           <TextField
             label="Password"
             name="password"
+            type="password"
             value={form.password}
             onChange={handleChange}
             variant="outlined"

@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Container, TextField, Button, Typography, Box, CssBaseline, Link } from "@mui/material";
 import { useUserContext } from "../context/userContext";
-import { Link as RouterLink } from "react-router-dom"; //https://v5.reactrouter.com/web/api/Link
+import { Link as RouterLink, useNavigate } from "react-router-dom"; //https://v5.reactrouter.com/web/api/Link
 import axios from "axios";
 
 function LoginForm() {
@@ -10,6 +10,7 @@ function LoginForm() {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   // new state value for showing submission messages to user
   const [submitResult, setSubmitResult] = useState("");
@@ -28,17 +29,15 @@ function LoginForm() {
         emailId: userEmail,
         password: userPassword,
       });
-
-      if (response.data.success) {
+      console.log(response.data);
+      if (response.data.user) {
         handleUpdateUser(response.data.user);
-        setSubmitResult("Successful Login.");
-      } else {
-        setSubmitResult(response.data.message || "Login failed");
       }
     } catch (error) {
       console.error("Login error: ", error);
     }
     setSubmitResult("Error - Could not contact server");
+    navigate("/");
   };
 
   if (loginAttempts >= 5) return <p>Too many login attempts. Your account it temporarily suspended.</p>; //counts login attempts and if more than 5, then will link to direction to hide form and suspend account.

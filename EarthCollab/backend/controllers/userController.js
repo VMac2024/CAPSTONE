@@ -33,6 +33,7 @@ const getUsers = (res) => {
 const createUser = async (req, res) => {
   try {
     const { firstName, lastName, emailId, password, location, expertise } = req.body;
+    console.log(req.body);
 
     if (!(emailId && password && firstName && lastName && location && expertise)) {
       return res.status(400).json({ result: "All fields must be completed" });
@@ -84,7 +85,7 @@ const loginUser = async (req, res) => {
       return res.status(400).json({ result: "Both Email and Password required " });
     }
 
-    const user = await Models.user.findOne({ raw: true, where: { emailId: emailId } });
+    const user = await Models.User.findOne({ raw: true, where: { emailId: emailId } });
 
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = createToken(user.id, emailId);

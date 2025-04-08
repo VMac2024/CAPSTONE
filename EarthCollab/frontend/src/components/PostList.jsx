@@ -4,6 +4,7 @@ import PostCard from "./PostCard";
 import { useEffect, useReducer, useState } from "react";
 import { Grid2, Container, CssBaseline, FormControl, InputLabel, Select, MenuItem, TextField } from "@mui/material";
 import { useDeleteHook } from "../hooks/deleteHook";
+import { useUpdateHook } from "../hooks/updateHook";
 //include search function
 export function PostList() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -11,6 +12,7 @@ export function PostList() {
 
   const { loading, data, error } = useData("api/post", []);
   const { deleteHook } = useDeleteHook();
+  const { updateHook } = useUpdateHook();
 
   const posts = data.data ? data.data : data;
   console.log(posts);
@@ -42,6 +44,12 @@ export function PostList() {
     setSearchParams({ limit: e.target.value });
   };
 
+  const handleUpdate = (e) => {
+    const updatedData = { title: "Updated Title", content: "New Content" };
+    updateHook("api/post", post.id, updatedData, () => {
+      setItems((prev) => prev.map((item) => (item.id === id ? { ...item, ...updatedData } : item)));
+    });
+  };
   return (
     <>
       <Container>

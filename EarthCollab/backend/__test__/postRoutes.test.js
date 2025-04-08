@@ -5,86 +5,93 @@ const request = require("supertest"); // npm install jest supertest sqlite3
 const app = require("../app");
 const { Sequelize } = require("../dbConnect");
 const models = require("../models");
-const { user, loginUser, updateUser, userImage } = require("./db.data");
+const { post, loginpost, updatepost, postImage } = require("./db.data");
 const { createToken } = require("../middleware/auth");
 
-let testUserId = 1;
-const registerEmail = "test2@user.com";
+let testpostId = 1;
+const registerEmail = "test2@post.com";
 
 beforeAll(async () => {
   await Sequelize.sync({ force: true });
 
   // insert test data
-  const testUser = await models.User.create({ ...user, email: "initial@user.com" });
-  testUserId = testUser.id;
+  const testpost = await models.post.create({ ...post, email: "initial@post.com" });
+  testpostId = testpost.id;
 });
 
 afterAll(async () => {
   // clean up database
-  await models.User.truncate();
+  await models.post.truncate();
   await Sequelize.close();
 });
 
 // list of routes - will create and run a test for each one based on the below config
-const userRoutes = [
+const postRoutes = [
   {
     method: "GET",
-    path: `/api/user`,
-    description: "get all users",
-    resultMsg: "User data fetched successfully",
+    path: `/api/posts`,
+    description: "get all posts",
+    resultMsg: "post data fetched successfully",
     dataType: "array",
     auth: true,
   },
   {
     method: "POST",
-    path: `/api/user`,
-    description: "create new user",
-    resultMsg: "User created successfully",
-    body: user,
+    path: `/api/posts`,
+    description: "create new post",
+    resultMsg: "post created successfully",
+    body: post,
     dataType: "object",
     successCode: 201,
     auth: true,
   },
   {
     method: "POST",
-    path: `/api/user/login`,
-    description: "login existing user",
-    resultMsg: "User successfully logged in",
-    body: loginUser,
+    path: `/api/posts/login`,
+    description: "login existing post",
+    resultMsg: "post successfully logged in",
+    body: loginpost,
     dataType: "object",
   },
   {
     method: "POST",
-    path: `/api/user/register`,
-    description: "register new user",
-    resultMsg: "User successfully registered",
-    body: { ...user, email: registerEmail },
+    path: `/api/posts/register`,
+    description: "register new post",
+    resultMsg: "post successfully registered",
+    body: { ...post, email: registerEmail },
     dataType: "object",
     successCode: 201,
   },
   {
     method: "PUT",
-    path: `/api/user/${testUserId}`,
-    description: "update user data",
-    resultMsg: "User updated successfully",
-    body: updateUser,
+    path: `/api/posts/${testpostId}`,
+    description: "update post data",
+    resultMsg: "post updated successfully",
+    body: updatepost,
     dataType: "object",
     auth: true,
   },
-  //    { method: 'POST', path: `/api/users/sendpw`, description: 'reset password for user', resultMsg: 'Reset email sent successfully, check your email', body: loginUser, dataType: 'object' },
-
-  { method: "DELETE", path: `/api/users/${testUserId}`, description: "delete user", resultMsg: "User deleted successfully", auth: true },
+  //    { method: 'POST', path: `/api/posts/sendpw`, description: 'reset password for post', resultMsg: 'Reset email sent successfully, check your email', body: loginpost, dataType: 'object' },
+  {
+    method: "POST",
+    path: `/api/posts/${testpostId}/image`,
+    description: "update image for post",
+    resultMsg: "Image uploaded to profile successfully",
+    body: postImage,
+    dataType: "object",
+  },
+  { method: "DELETE", path: `/api/Post/${testpostId}`, description: "delete post", resultMsg: "post deleted successfully", auth: true },
 ];
 
-describe("User Routes", () => {
+describe("Post Routes", () => {
   // test each route, checking content type, response code, and body
-  for (let route of userRoutes) {
+  for (let route of postRoutes) {
     test(`${route.method} ${route.path} => ${route.description}`, async () => {
       const req = request(app)[route.method.toLowerCase()](route.path); // dynamically call the right HTTP method
 
       // if this request requires authentication, send a token
       if (route.auth) {
-        const token = createToken(1, "test@user.com");
+        const token = createToken(1, "test@post.com");
         req.set("x-access-token", token);
       }
 
