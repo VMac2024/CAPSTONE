@@ -6,8 +6,11 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import { IconButton } from "@mui/material";
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
-export default function ArticleCard({ article }) {
+export default function ArticleCard({ article, user, onDelete }) {
   const navigate = useNavigate();
 
   const handleViewDetails = () => {
@@ -30,6 +33,12 @@ export default function ArticleCard({ article }) {
             <Button size="small" onClick={handleViewDetails}>
               Read
             </Button>
+            <IconButton size="small" onClick={onDelete}>
+              <DeleteForeverOutlinedIcon />
+            </IconButton>
+            <IconButton size="small" onClick={onDelete}>
+              <EditOutlinedIcon />
+            </IconButton>
           </CardActions>
         </React.Fragment>
       </Card>

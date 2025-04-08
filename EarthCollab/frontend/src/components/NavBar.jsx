@@ -16,15 +16,15 @@ import { NavLink } from "react-router-dom";
 
 const pages = [
   { link: "/", label: "Home" },
-  { link: "/loginpage", label: "Login" },
+
   { link: "/posts", label: "Posts" },
   { link: "/articles", label: "Articles" },
   { link: "/projects", label: "Projects" },
+
   { link: "/about", label: "About" },
 ];
 const settings = [
-  { link: "/profile", label: "Profile" },
-  { link: "/account", label: "Account" },
+  { link: "/loginpage", label: "Login" },
   { link: "/dash", label: "Dashboard" },
   { link: "/logout", label: "Logout" },
 ];

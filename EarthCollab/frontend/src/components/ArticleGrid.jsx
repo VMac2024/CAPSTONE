@@ -3,20 +3,34 @@ import ArticleCard from "./ArticleCards";
 import { useEffect, useReducer, useState } from "react";
 import { useData } from "../hooks/useData";
 import axios from "axios";
+import { useDeleteHook } from "../hooks/deleteHook";
 
 const itemsPerPage = 12;
 
 export default function ArticleGrid({ pdfs = [] }) {
   const { data } = useData("/api/article", []);
+  const { deleteHook } = useDeleteHook();
+
   const articles = data.data ? data.data : data;
   console.log(articles);
-  const [message, setMessage] = useState("");
-  const [currentArticles, setCurrentArticles] = useState(articles);
+
+  const [deletedArticles, setDeletedArticles] = useState([]);
+
   const categories = ["All", ...new Set(articles.map((articles) => articles.category))];
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const filteredArticles = selectedCategory === "All" ? articles : articles.filter((article) => article.category === selectedCategory);
+  const filteredArticles = articles
+    .filter((article) => !deletedArticles.includes(article.id))
+    .filter((article) => (selectedCategory === "All" ? articles : articles.filter((article) => article.category === selectedCategory)));
 
-  const articleList = filteredArticles.map((article) => <ArticleCard key={article.id} article={article} />);
+  //const articleList = filteredArticles.map((article) => <ArticleCard key={article.id} article={article} />);
+
+  const handleChangeCategory = (e) => {
+    setSelectedCategory({ limit: e.target.value });
+  };
+
+  const handleChangeLimit = (e) => {
+    setSearchParams({ limit: e.target.value });
+  };
 
   return (
     <>
@@ -24,12 +38,7 @@ export default function ArticleGrid({ pdfs = [] }) {
         <CssBaseline />
         <FormControl fullWidth sx={{ mb: 3, width: 200 }}>
           <InputLabel>Category</InputLabel>
-          <Select
-            name="filterCategory"
-            label="Filter by Category"
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-          >
+          <Select name="filterCategory" label="Filter by Category" value={selectedCategory} onChange={handleChangeCategory}>
             {categories.map((category) => (
               <MenuItem key={category} value={category}>
                 {category}
@@ -38,20 +47,19 @@ export default function ArticleGrid({ pdfs = [] }) {
           </Select>
         </FormControl>
         <Grid2 container spacing={2} size={{ xs: 12, sm: 6, md: 3 }}>
-          {articleList}
+          {filteredArticles.map((article) => (
+            <ArticleCard
+              key={article.id}
+              article={article}
+              onDelete={() =>
+                deleteHook("api/article", article.id, () => {
+                  setDeletedArticles((prev) => [...prev, article.id]);
+                })
+              }
+            />
+          ))}
         </Grid2>
       </Container>
     </>
   );
 }
-
-//{currentItems.length > 0 ? (
-//    currentItems.map((article) => (
-
-//          )) ) : (    <p>No articles matching your search</p>  )}
-
-/* const items = useData("/api/article");
-
-  useEffect(() => {
-    console.log("fetched items:", items);
-  }, [items]); */

@@ -4,8 +4,8 @@ import TermsConditions from "../components/TermsConditions";
 export default function AboutPage() {
   return (
     <>
-      <img src="/assets/images/communityenvironment.jpeg" />
       <About />
+      <img src={"/src/assets/images/communityenvironment.jpeg"} width={600} />
       <TermsConditions />
     </>
   );

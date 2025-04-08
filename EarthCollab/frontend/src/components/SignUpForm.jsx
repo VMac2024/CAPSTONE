@@ -1,6 +1,6 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
-import { Box, Container, Button, CssBaseline, Typography, Select, MenuItem, Link } from "@mui/material";
+import { Box, Container, Button, CssBaseline, Typography, Select, MenuItem, Link, InputLabel, FormControl } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -105,14 +105,16 @@ function SignUpForm() {
             fullWidth
             margin="normal"
           />
-
-          <Select labelId="expertise" fullWidth label="Expertise" name="expertise" value={expertise} onChange={handleExpertiseChange}>
-            {expertiseLevel.map((level, index) => (
-              <MenuItem key={index} value={level}>
-                {level}
-              </MenuItem>
-            ))}
-          </Select>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel id="expertise">Environmental Expertise?</InputLabel>
+            <Select labelId="expertise" fullWidth label="Expertise" name="expertise" value={expertise} onChange={handleExpertiseChange}>
+              {expertiseLevel.map((level, index) => (
+                <MenuItem key={index} value={level}>
+                  {level}
+                </MenuItem>
+              ))}
+            </Select>{" "}
+          </FormControl>
           <TextField
             label="Email"
             name="emailId"

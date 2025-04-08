@@ -1,5 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { PostList } from "../components/PostList";
+import { Button } from "@mui/material";
 
 export default function PostPage() {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ export default function PostPage() {
       <div className="PostPage">
         <h1>GreenEarth Posts</h1>
       </div>
-      <button onClick={() => navigate("/dash/createPost")}>Create Post</button>
+      <Button onClick={() => navigate("/dash/createPost")}>Create Post</Button>
       <Outlet />
     </>
   );

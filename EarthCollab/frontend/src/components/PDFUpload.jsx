@@ -98,7 +98,15 @@ function PDFUpload() {
           value={form.title}
           onChange={(e) => setForm({ ...form, title: e.target.value })}
         />
-        <Select labelId="category" id="category" value={category} label="Category" name="category" onChange={handleCategoryChange}>
+        <Select
+          fullWidth
+          labelId="category"
+          id="category"
+          value={category}
+          label="Category"
+          name="category"
+          onChange={handleCategoryChange}
+        >
           {categories.map((category, index) => (
             <MenuItem key={index} value={category}>
               {category}
