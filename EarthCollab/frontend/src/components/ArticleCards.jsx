@@ -36,9 +36,6 @@ export default function ArticleCard({ article, user, onDelete }) {
             <IconButton size="small" onClick={onDelete}>
               <DeleteForeverOutlinedIcon />
             </IconButton>
-            <IconButton size="small">
-              <EditOutlinedIcon />
-            </IconButton>
           </CardActions>
         </React.Fragment>
       </Card>
