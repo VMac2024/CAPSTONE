@@ -1,9 +1,7 @@
 import axios from "axios";
 import { useState } from "react"; //useContext
 import { Container, CssBaseline, Box, TextField, Button, Select, MenuItem } from "@mui/material";
-//import { useUserContext } from "../context/userContext";
-
-// import user context - need to create first.
+import { useUserContext } from "../context/userContext";
 
 function PDFUpload() {
   const [form, setForm] = useState({
@@ -34,9 +32,9 @@ function PDFUpload() {
   ];
   const [category, setCategory] = useState("");
 
-  //const { currentUser, handleUpdateUser } = useUserContext();
+  const { currentUser, handleUpdateUser } = useUserContext();
 
-  //console.log(currentUser);
+  console.log(currentUser);
 
   const handleSubmit = async (e) => {
     e.preventDefault(); //prevent defaul form action from taking effect until submitted.
@@ -57,7 +55,7 @@ function PDFUpload() {
       const response = await axios.post(`/api/article/create`, formData); //${currentUser.id} (replace "1" with this when implementing usercontext & login requirements. )
       console.log(response.data);
       setStatus(response.data.result);
-      //handleUpdateUser({ ...currentUser, ...response.data.data });
+      handleUpdateUser({ ...currentUser, ...response.data.data });
     } catch (err) {
       console.error(err);
       setStatus("Error, could not upload file: " + err.message);

@@ -12,27 +12,46 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { NavLink } from "react-router-dom";
-
-const pages = [
-  { link: "/", label: "Home" },
-
-  { link: "/posts", label: "Posts" },
-  { link: "/articles", label: "Articles" },
-  { link: "/projects", label: "Projects" },
-
-  { link: "/about", label: "About" },
-];
-const settings = [
-  { link: "/loginpage", label: "Login" },
-  { link: "/dash", label: "Dashboard" },
-  { link: "/logout", label: "Logout" },
-];
+import { NavLink, useNavigate } from "react-router-dom";
+import { useUserContext } from "../context/userContext";
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { currentUser, handleUpdateUser } = useUserContext();
+  //const { currentUser, setCurrentUser } = useUserContext();
 
+  let loggedInUser = null;
+
+  const handleLogout = () => {
+    console.log("UserLogoutState:", currentUser);
+    handleUpdateUser(loggedInUser);
+    localStorage.clear();
+    handleCloseUserMenu();
+    navigate("/");
+
+    //setCurrentUser(loggedInUser);
+    // {() => handleUpdateUser({} as User)}
+    //const { currentUser, handleUpdateUser } = useUserContext();
+    console.log("currentUser:", currentUser);
+    console.log("loggedoutUser:", loggedInUser);
+    //setTimeout(() => navigate("/"), 3000);
+    console.log("user:", currentUser);
+    //return;
+  };
+
+  const pages = [
+    { link: "/", label: "Home" },
+    { link: "/posts", label: "Posts" },
+    { link: "/articles", label: "Articles" },
+    { link: "/projects", label: "Projects" },
+    { link: "/about", label: "About" },
+  ];
+  const settings = [
+    { link: "/loginpage", label: "Login" },
+    { link: "/dash", label: "Dashboard" },
+  ];
+  const navigate = useNavigate();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -137,7 +156,7 @@ function NavBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src="/broken-image.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -161,6 +180,19 @@ function NavBar() {
                   <Typography sx={{ textAlign: "center" }}>{setting.label}</Typography>
                 </MenuItem>
               ))}
+              <MenuItem>
+                <Typography
+                  sx={{ textAlign: "center" }}
+                  onClick={
+                    handleLogout
+
+                    //console.log("Test");
+                  }
+                >
+                  {/*<Button onClick={() => handleUpdateUser({} as User)}>Log Out</Button>*/}
+                  Logout
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
@@ -169,3 +201,5 @@ function NavBar() {
   );
 }
 export default NavBar;
+
+//{ link: "#", label: "Logout", onClick: { handleLogout } },
