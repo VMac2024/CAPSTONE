@@ -1,8 +1,10 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { PostList } from "../components/PostList";
 import { Button } from "@mui/material";
+import { useUserContext } from "../context/userContext";
 
 export default function PostPage() {
+  const { currentUser } = useUserContext();
   const navigate = useNavigate();
 
   return (
@@ -10,7 +12,7 @@ export default function PostPage() {
       <div className="PostPage">
         <h1>GreenEarth Posts</h1>
       </div>
-      <Button onClick={() => navigate("/dash/createPost")}>Create Post</Button>
+      {currentUser?.id && <Button onClick={() => navigate("/dash/createPost")}>Create Post</Button>}
       <Outlet />
     </>
   );

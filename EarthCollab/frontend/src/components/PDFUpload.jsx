@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useState } from "react"; //useContext
-import { Container, CssBaseline, Box, TextField, Button, Select, MenuItem } from "@mui/material";
+import { Container, CssBaseline, Box, TextField, Button, Select, MenuItem, Typography } from "@mui/material";
 import { useUserContext } from "../context/userContext";
+import { Alert } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function PDFUpload() {
   const [form, setForm] = useState({
@@ -11,6 +13,7 @@ function PDFUpload() {
   });
   const [file, setFile] = useState({ preview: "", data: "" });
   const [status, setStatus] = useState("");
+  const navigate = useNavigate();
 
   const categories = [
     "Agriculture",
@@ -55,12 +58,14 @@ function PDFUpload() {
 
     //post form data to backend:
     try {
-      const response = await axios.post(`/api/article/create`, formData, { headers: headers }); //${currentUser.id} (replace "1" with this when implementing usercontext & login requirements. )
+      const response = await axios.post(`/api/article/create`, formData, { headers: headers });
       console.log(response.data);
       setStatus(response.data.result);
+      setTimeout(() => navigate("/articles"), 2000);
     } catch (err) {
       console.error(err);
       setStatus("Error, could not upload file: " + err.message);
+      setTimeout(() => navigate("/articles"), 2000);
     }
   };
 
@@ -80,13 +85,19 @@ function PDFUpload() {
   return (
     <Container component="main" maxWidth="sx">
       <CssBaseline />
-      <h5>Note: must be a pdf to upload</h5>
+
       <Box
         component="form"
         onSubmit={handleSubmit}
         noValidate
         sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}
       >
+        <Typography variant="h3" align="center">
+          Article Upload
+        </Typography>
+        <Typography variant="h6" align="center">
+          NOTE: Must be a PDF to upload
+        </Typography>
         <TextField
           margin="normal"
           required
@@ -124,13 +135,14 @@ function PDFUpload() {
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
         />
-        {file.preview && <embed src={file.preview} width="400" height="400" />}
+        {/** {file.preview && <embed src={file.preview} width="400" height="400" />} */}
         <input name="file" type="file" onChange={handleFileChange} accept="application/pdf" />
         <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
           Submit
         </Button>
       </Box>
-      <p>{status}</p>
+      {status === 200 && <Alert severity="success">Article Submitted</Alert>}
+      {status === 500 && <Alert severity="error">Upload failed, please try again</Alert>}
     </Container>
   );
 }

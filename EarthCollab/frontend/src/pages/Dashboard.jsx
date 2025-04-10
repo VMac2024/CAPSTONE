@@ -15,9 +15,6 @@ export default function DashboardPage() {
   return (
     <>
       <div className="Dash">
-        <h1>Dashboard</h1>
-        <button onClick={() => navigate("/dash/articleUpload")}>Upload Article</button>
-        <button onClick={() => navigate("/dash/createPost")}>Create Post</button>
         <Outlet />
       </div>
     </>
@@ -27,7 +24,6 @@ export default function DashboardPage() {
 export function ArticleUpload(props) {
   return (
     <>
-      <h3> Submit an Article</h3>
       <PDFUpload />
     </>
   );

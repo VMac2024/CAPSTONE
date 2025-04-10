@@ -9,7 +9,7 @@ Article.init(
     id: { type: DataTypes.INTEGER, allowNull: false, autoIncrement: true, primaryKey: true },
     title: { type: DataTypes.STRING, allowNull: false },
     pdfLink: { type: DataTypes.STRING, allowNull: false },
-    description: { type: DataTypes.STRING, allowNull: false, unique: true },
+    description: { type: DataTypes.STRING, allowNull: false },
     category: { type: DataTypes.STRING, allowNull: false },
   },
   {

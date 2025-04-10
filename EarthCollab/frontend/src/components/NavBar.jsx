@@ -48,10 +48,8 @@ function NavBar() {
     { link: "/projects", label: "Projects" },
     { link: "/about", label: "About" },
   ];
-  const settings = [
-    { link: "/loginpage", label: "Login" },
-    { link: "/dash", label: "Dashboard" },
-  ];
+  const settings = [{ link: "/loginpage", label: "Login" }];
+
   const navigate = useNavigate();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
