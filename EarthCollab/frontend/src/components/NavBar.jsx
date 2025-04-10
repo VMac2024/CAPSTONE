@@ -21,11 +21,12 @@ function NavBar() {
   const { currentUser, handleUpdateUser } = useUserContext();
   //const { currentUser, setCurrentUser } = useUserContext();
 
-  let loggedInUser = null;
+  // let loggedInUser = null;
 
   const handleLogout = () => {
     console.log("UserLogoutState:", currentUser);
-    handleUpdateUser(loggedInUser);
+    window.localStorage.clear();
+    handleUpdateUser({}); //loggedInUser
     localStorage.clear();
     handleCloseUserMenu();
     navigate("/");
@@ -34,7 +35,7 @@ function NavBar() {
     // {() => handleUpdateUser({} as User)}
     //const { currentUser, handleUpdateUser } = useUserContext();
     console.log("currentUser:", currentUser);
-    console.log("loggedoutUser:", loggedInUser);
+    //console.log("loggedoutUser:", loggedInUser);
     //setTimeout(() => navigate("/"), 3000);
     console.log("user:", currentUser);
     //return;

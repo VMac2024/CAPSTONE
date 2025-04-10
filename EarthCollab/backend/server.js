@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/images", express.static("/images"));
 app.use("/pdfs", express.static("public/pdfs"));
+//app.use("/pdfs", express.static(path.join(__dirname, "./public/pdfs")));
 
 let userRoutes = require("./routes/userRoutes");
 app.use("/api/user", userRoutes);

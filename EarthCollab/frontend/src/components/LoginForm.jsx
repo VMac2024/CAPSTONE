@@ -28,37 +28,34 @@ function LoginForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let loggedInUser = null;
+    let loggedInUser = {};
 
     try {
       const response = await axios.post("/api/user/login", {
         emailId: userEmail,
         password: userPassword,
       });
-      loggedInUser = response.data.data; //may need to take the extra data off.
+      const { token, user } = response.data;
+      window.localStorage.setItem("token", token);
+      // loggedInUser = response.data.data; //may need to take the extra data off.
       console.log(response.data);
       if (response.data) {
         handleUpdateUser(loggedInUser);
-        setLoggedIn(true);
+        // setLoggedIn(true);
+
         console.log("LoggedinUser: ", loggedInUser);
         setLoginAlert(true);
         setTimeout(() => setLoginAlert(false), 3000);
+        setTimeout(() => navigate("/"), 2000);
       }
     } catch (error) {
       console.error("Login error: ", error);
+      setLoginAttempts((prev) => prev + 1);
+      setSubmitResult("Login failed, Please try again");
     }
-    setTimeout(() => navigate("/"), 3000);
+    //setTimeout(() => navigate("/"), 3000);
     //navigate("/");
   };
-
-  if (loginAttempts >= 5) return <p>Too many login attempts. Your account it temporarily suspended.</p>; //counts login attempts and if more than 5, then will link to direction to hide form and suspend account.
-
-  if (isLoggedIn)
-    return (
-      <div className="LoginForm componentBox">
-        <p>Welcome {currentUser}</p>
-      </div>
-    ); //return welcome message if login is successful.
 
   return (
     <>
@@ -124,3 +121,12 @@ export default LoginForm;
       handleUpdateUser({ email: userEmail, password: userPassword });
     }
 */
+
+/*  if (loginAttempts >= 5) return <p>Too many login attempts. Your account it temporarily suspended.</p>; //counts login attempts and if more than 5, then will link to direction to hide form and suspend account.
+
+  if (isLoggedIn)
+    return (
+      <div className="LoginForm componentBox">
+        <p>Welcome {currentUser?.firstName}</p>
+      </div>
+    ); //return welcome message if login is successful. */
