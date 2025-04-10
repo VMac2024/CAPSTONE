@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import PdfViewer from "./PDFViewer";
+import "react-pdf/dist/esm/Page/TextLayer.css";
+import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 
 export default function ArticleCard({ article, user, onDelete }) {
   const navigate = useNavigate();
@@ -16,9 +18,12 @@ export default function ArticleCard({ article, user, onDelete }) {
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  /* const handleViewDetails = () => {
-    navigate(`/article/${article.id}`, { state: { article } });
-  };*/
+  const handleOpenPdf = () => {
+    const cleanedPath = article.pdfLink.startsWith("/public/") ? article.pdfLink.replace("/public", "") : article.pdfLink;
+    const fullUrl = `${window.location.origin}${cleanedPath}`;
+    window.open(fullUrl, "_blank", "noopener,noreferrer");
+  };
+
   return (
     /*Render the cards in a grid to show PDFS: */
     <Box sx={{ minWidth: 275 }}>
@@ -47,9 +52,18 @@ export default function ArticleCard({ article, user, onDelete }) {
       {/*View PDF Modal: */}
       {open && (
         <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
-          <DialogTitle>{article.title}</DialogTitle>
+          <DialogTitle>
+            {article.title}{" "}
+            <IconButton aria-label="close" onClick={handleClose} sx={{ position: "absolute", right: 8, top: 8 }}>
+              ×
+            </IconButton>
+          </DialogTitle>
           <DialogContent>
-            {article.pdfLink ? <PdfViewer file={`http://localhost:5000${article.pdfLink}`} /> : <Typography>No PDF available.</Typography>}
+            {article.pdfLink ? (
+              <PdfViewer file={`http://localhost:8081${article.pdfLink.replace("/public", "")}`} />
+            ) : (
+              <Typography>No PDF available.</Typography>
+            )}
           </DialogContent>
         </Dialog>
       )}

@@ -40,3 +40,17 @@
 .read-the-docs {
   color: #888;
 }
+
+.react-pdf__TextLayer {
+  position: absolute;
+  background-color: transparent;
+  pointer-events: none;
+  user-select: none;
+}
+
+.react-pdf__AnnotationLayer {
+  position: absolute;
+  background-color: transparent;
+  pointer-events: none;
+  user-select: none;
+}
