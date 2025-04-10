@@ -11,41 +11,34 @@ function LoginForm() {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   //const [error, setError] = useState("");
-  const [loginAlert, setLoginAlert] = useState(false);
 
   // new state value for showing submission messages to user
   const [submitResult, setSubmitResult] = useState("");
   const [loginAttempts, setLoginAttempts] = useState(0); //set to 0, as there haven't been any attempts yet.
   const navigate = useNavigate();
   const { currentUser, handleUpdateUser } = useUserContext();
-  const isLoggedIn = submitResult === "Successful login."; //establish constant that if submitResult returns this result, the person is "logged in" and triggers the below functions to hide teh
-  const [loggedIn, setLoggedIn] = useState(currentUser.firstName);
-
-  useEffect(() => {
-    console.log("LoginAlert changed:", loginAlert);
-  }, [loginAlert]);
+  const isLoggedIn = currentUser?.id; //establish constant that if submitResult returns this result, the person is "logged in" and triggers the below functions to hide teh
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let loggedInUser = {};
+    //  let loggedInUser = {};
 
     try {
       const response = await axios.post("/api/user/login", {
         emailId: userEmail,
         password: userPassword,
       });
-      const { token, user } = response.data;
-      window.localStorage.setItem("token", token);
+      const { data } = response.data;
+
       // loggedInUser = response.data.data; //may need to take the extra data off.
       console.log(response.data);
       if (response.data) {
-        handleUpdateUser(loggedInUser);
+        handleUpdateUser(data);
         // setLoggedIn(true);
 
-        console.log("LoggedinUser: ", loggedInUser);
-        setLoginAlert(true);
-        setTimeout(() => setLoginAlert(false), 3000);
+        console.log("LoggedinUser: ", data);
+
         setTimeout(() => navigate("/"), 2000);
       }
     } catch (error) {
@@ -62,7 +55,7 @@ function LoginForm() {
       <Container component="main" maxWidth="md">
         <CssBaseline />
 
-        {loginAlert && <Alert severity="success">You are loggedin</Alert>}
+        {isLoggedIn && <Alert severity="success">You are loggedin</Alert>}
         <Box
           component="form"
           onSubmit={handleSubmit}

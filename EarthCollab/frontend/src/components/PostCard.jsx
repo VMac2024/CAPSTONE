@@ -10,6 +10,7 @@ import { CardMedia, IconButton, styled, TextField } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { useState, useEffect } from "react";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -39,6 +40,14 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
   const navigate = useNavigate();
   const [expanded, setExpanded] = React.useState(false);
   const [comment, setComment] = React.useState("");
+
+  //Check if user is logged in:
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const handleViewDetails = () => {
     navigate(`/posts/${post.id}`, { state: { post } });

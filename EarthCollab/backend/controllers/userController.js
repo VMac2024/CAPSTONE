@@ -88,7 +88,7 @@ const loginUser = async (req, res) => {
     const user = await Models.User.findOne({ raw: true, where: { emailId: emailId } });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      const token = createToken(user.id, emailId);
+      const token = createToken(user.id, emailId, user.accessLevel);
       user.token = token;
       console.log(user);
 

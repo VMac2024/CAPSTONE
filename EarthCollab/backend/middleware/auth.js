@@ -23,8 +23,8 @@ const verifyToken = (req, res, next) => {
   return next();
 };
 
-const createToken = (userId, userEmail) => {
-  const token = jwt.sign({ user_id: userId, userEmail }, process.env.JWT_KEY, { expiresIn: "2h" });
+const createToken = (userId, userEmail, accessLevel) => {
+  const token = jwt.sign({ user_id: userId, userEmail, accessLevel }, process.env.JWT_KEY, { expiresIn: "2h" });
   return token;
 };
 

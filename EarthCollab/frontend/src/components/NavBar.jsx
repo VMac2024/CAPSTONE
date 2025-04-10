@@ -25,9 +25,9 @@ function NavBar() {
 
   const handleLogout = () => {
     console.log("UserLogoutState:", currentUser);
-    window.localStorage.clear();
+
     handleUpdateUser({}); //loggedInUser
-    localStorage.clear();
+
     handleCloseUserMenu();
     navigate("/");
 

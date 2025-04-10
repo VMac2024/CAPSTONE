@@ -11,10 +11,11 @@ const loginUser = () => {
 const UserContext = createContext();
 
 export const UserProvider = (props) => {
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState(JSON.parse(window.localStorage.getItem("user")));
 
   const handleUpdateUser = (user) => {
     setCurrentUser(user);
+    window.localStorage.setItem("user", JSON.stringify(user));
   };
 
   return <UserContext.Provider value={{ currentUser, handleUpdateUser }}>{props.children}</UserContext.Provider>;

@@ -49,13 +49,15 @@ function PDFUpload() {
     formData.append("title", form.title);
     formData.append("description", form.description);
     formData.append("category", category);
+    formData.append("userId", currentUser.id);
+
+    const headers = { "x-access-token": currentUser.token };
 
     //post form data to backend:
     try {
-      const response = await axios.post(`/api/article/create`, formData); //${currentUser.id} (replace "1" with this when implementing usercontext & login requirements. )
+      const response = await axios.post(`/api/article/create`, formData, { headers: headers }); //${currentUser.id} (replace "1" with this when implementing usercontext & login requirements. )
       console.log(response.data);
       setStatus(response.data.result);
-      handleUpdateUser({ ...currentUser, ...response.data.data });
     } catch (err) {
       console.error(err);
       setStatus("Error, could not upload file: " + err.message);

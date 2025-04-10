@@ -1,14 +1,16 @@
 import axios from "axios";
 import { useState } from "react"; //useContext
-import { Container, CssBaseline, Box, TextField, Button, Select, MenuItem } from "@mui/material";
+import { Container, CssBaseline, Box, TextField, Button, Select, MenuItem, getContrastRatio } from "@mui/material";
 import { useUserContext } from "../context/userContext";
 
 // import user context - need to create first.
 
 function PostForm() {
+  const { currentUser } = useUserContext(); //get current user from userContext.
   const [form, setForm] = useState({ title: "", content: "" });
   const [file, setFile] = useState({ preview: "", data: "" });
   const [status, setStatus] = useState("");
+
   //const { currentUser, handleUpdateUser } = useUserContext();
 
   //console.log(currentUser);
@@ -41,14 +43,21 @@ function PostForm() {
       return;
     }
 
+    if (!currentUser) {
+      setStatus("You must Login to Post.");
+      return;
+    }
+
     let formData = new FormData();
     formData.append("file", file.data); //check if this has a naming convention?
     formData.append("title", form.title);
     formData.append("content", form.content);
     formData.append("category", category);
+    formData.append("userId", currentUser.id);
 
     //post form data to backend:
     try {
+      //check for data being sent:
       console.log("Sending form data:");
       console.log("title:", form.title);
       console.log("content:", form.content);
@@ -57,7 +66,6 @@ function PostForm() {
       const response = await axios.post(`/api/post/create`, formData); //${currentUser.id} (replace "1" with this when implementing usercontext & login requirements. )
       console.log(response.data);
       setStatus(response.data.result);
-      //handleUpdateUser({ ...currentUser, ...response.data.data });
     } catch (err) {
       setStatus(err.message);
       setStatus("Error, could not upload file: " + err.message);
