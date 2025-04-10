@@ -19,13 +19,14 @@ const getArticles = (res) => {
 const createArticle = (req, res) => {
   console.log(req.body); //check body data.
   console.log(req.file); //check file name.
-  const { title, description, category } = req.body;
+  const { title, description, category, userId } = req.body;
   const pdfLink = "/public/pdfs/" + req.file.filename;
   Models.Article.create({
     title,
     pdfLink,
     description,
     category,
+    userId,
   })
     .then((data) => {
       res.send({ result: 200, data: data });

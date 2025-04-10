@@ -1,17 +1,16 @@
 import axios from "axios";
 import { useState } from "react"; //useContext
-import { Container, CssBaseline, Box, TextField, Button, Select, MenuItem, getContrastRatio } from "@mui/material";
+import { Container, CssBaseline, Box, TextField, Button, Select, MenuItem, FormControl, InputLabel, Typography } from "@mui/material";
 import { useUserContext } from "../context/userContext";
-
-// import user context - need to create first.
+import { Alert } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function PostForm() {
   const { currentUser } = useUserContext(); //get current user from userContext.
   const [form, setForm] = useState({ title: "", content: "" });
   const [file, setFile] = useState({ preview: "", data: "" });
   const [status, setStatus] = useState("");
-
-  //const { currentUser, handleUpdateUser } = useUserContext();
+  const navigate = useNavigate();
 
   const categories = [
     "Agriculture",
@@ -25,6 +24,8 @@ function PostForm() {
     "Reforestation",
     "ReGreening",
     "Renewables",
+    "Rewilding",
+    "Sustainability",
     "Transport",
     "UrbanTech",
     "Waste",
@@ -53,6 +54,8 @@ function PostForm() {
     formData.append("category", category);
     formData.append("userId", currentUser.id);
 
+    const headers = { "x-access-token": currentUser.token };
+
     console.log("CheckFormData: ", formData);
 
     //post form data to backend:
@@ -64,12 +67,14 @@ function PostForm() {
       console.log("category:", category);
       console.log("file.data:", file.data);
       console.log("userId", currentUser.id);
-      const response = await axios.post(`/api/post/create`, formData); //${currentUser.id} (replace "1" with this when implementing usercontext & login requirements. )
+      const response = await axios.post(`/api/post/create`, formData, { headers: headers }); //${currentUser.id} (replace "1" with this when implementing usercontext & login requirements. )
       console.log(response.data);
       setStatus(response.data.result);
+      setTimeout(() => navigate("/posts"), 2000);
     } catch (err) {
       setStatus(err.message);
       setStatus("Error, could not upload file: " + err.message);
+      setTimeout(() => navigate("/posts"), 2000);
     }
   };
 
@@ -94,6 +99,10 @@ function PostForm() {
         noValidate
         sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}
       >
+        <Typography variant="h3" align="center">
+          Create Post
+        </Typography>
+
         <TextField
           margin="normal"
           required
@@ -105,13 +114,24 @@ function PostForm() {
           value={form.title}
           onChange={(e) => setForm({ ...form, title: e.target.value })}
         />
-        <Select labelId="category" id="category" value={category} label="Category" name="category" onChange={handleCategoryChange}>
-          {categories.map((category, index) => (
-            <MenuItem key={index} value={category}>
-              {category}
-            </MenuItem>
-          ))}
-        </Select>
+        <FormControl fullWidth variant="outlined">
+          <InputLabel id="category">Category</InputLabel>
+          <Select
+            fullWidth
+            labelId="category"
+            id="category"
+            value={category}
+            label="Category"
+            name="category"
+            onChange={handleCategoryChange}
+          >
+            {categories.map((category, index) => (
+              <MenuItem key={index} value={category}>
+                {category}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <TextField
           margin="normal"
           required
@@ -129,7 +149,8 @@ function PostForm() {
           Submit
         </Button>
       </Box>
-      <p>{status}</p>
+      {status === 200 && <Alert severity="success">Post created</Alert>}
+      {status === 500 && <Alert severity="error">Post failed, please try again</Alert>}
     </Container>
   );
 }

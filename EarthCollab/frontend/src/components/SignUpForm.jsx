@@ -121,7 +121,7 @@ function SignUpForm() {
                   {level}
                 </MenuItem>
               ))}
-            </Select>{" "}
+            </Select>
           </FormControl>
           <TextField
             label="Email"

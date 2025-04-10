@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useState } from "react"; //useContext
-import { Container, CssBaseline, Box, TextField, Button, Select, MenuItem, Typography } from "@mui/material";
+import { Container, CssBaseline, Box, TextField, Button, Select, MenuItem, Typography, FormControl, InputLabel } from "@mui/material";
 import { useUserContext } from "../context/userContext";
 import { Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 function PDFUpload() {
+  const { currentUser } = useUserContext();
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -27,6 +28,8 @@ function PDFUpload() {
     "Reforestation",
     "ReGreening",
     "Renewables",
+    "Rewilding",
+    "Sustainability",
     "Transport",
     "UrbanTech",
     "Waste",
@@ -35,7 +38,7 @@ function PDFUpload() {
   ];
   const [category, setCategory] = useState("");
 
-  const { currentUser, handleUpdateUser } = useUserContext();
+  // const { currentUser, handleUpdateUser } = useUserContext();
 
   console.log(currentUser);
 
@@ -109,21 +112,24 @@ function PDFUpload() {
           value={form.title}
           onChange={(e) => setForm({ ...form, title: e.target.value })}
         />
-        <Select
-          fullWidth
-          labelId="category"
-          id="category"
-          value={category}
-          label="Category"
-          name="category"
-          onChange={handleCategoryChange}
-        >
-          {categories.map((category, index) => (
-            <MenuItem key={index} value={category}>
-              {category}
-            </MenuItem>
-          ))}
-        </Select>
+        <FormControl fullWidth variant="outlined">
+          <InputLabel id="category">Category</InputLabel>
+          <Select
+            fullWidth
+            labelId="category"
+            id="category"
+            value={category}
+            label="Category"
+            name="category"
+            onChange={handleCategoryChange}
+          >
+            {categories.map((category, index) => (
+              <MenuItem key={index} value={category}>
+                {category}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <TextField
           margin="normal"
           required

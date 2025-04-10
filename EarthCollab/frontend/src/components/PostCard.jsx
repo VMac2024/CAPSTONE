@@ -58,7 +58,7 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
   };
 
   return (
-    <Box sx={{ minWidth: 275 }}>
+    <Box sx={{ minWidth: 300, maxWidth: 300 }}>
       <Card variant="outlined">
         <React.Fragment>
           <CardContent>
