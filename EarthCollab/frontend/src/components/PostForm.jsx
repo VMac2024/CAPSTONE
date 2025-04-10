@@ -13,8 +13,6 @@ function PostForm() {
 
   //const { currentUser, handleUpdateUser } = useUserContext();
 
-  //console.log(currentUser);
-
   const categories = [
     "Agriculture",
     "AirQuality",
@@ -36,8 +34,8 @@ function PostForm() {
   const [category, setCategory] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); //prevent defaul form action from taking effect until submitted.
-
+    e.preventDefault(); //prevent default form action from taking effect until submitted.
+    console.log("PostCheckUser:", currentUser);
     if (!file.data) {
       setStatus("Please add image to upload");
       return;
@@ -55,6 +53,8 @@ function PostForm() {
     formData.append("category", category);
     formData.append("userId", currentUser.id);
 
+    console.log("CheckFormData: ", formData);
+
     //post form data to backend:
     try {
       //check for data being sent:
@@ -63,6 +63,7 @@ function PostForm() {
       console.log("content:", form.content);
       console.log("category:", category);
       console.log("file.data:", file.data);
+      console.log("userId", currentUser.id);
       const response = await axios.post(`/api/post/create`, formData); //${currentUser.id} (replace "1" with this when implementing usercontext & login requirements. )
       console.log(response.data);
       setStatus(response.data.result);

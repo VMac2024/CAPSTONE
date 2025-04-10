@@ -18,13 +18,14 @@ const getPosts = (res) => {
 const createPost = (req, res) => {
   console.log(req.body);
   console.log(req.file);
-  const { title, content, category } = req.body;
+  const { title, content, category, userId } = req.body;
   const image = "/images/" + req.file.filename;
   Models.Post.create({
     title,
     content,
     image,
     category,
+    userId,
   })
     .then((data) => {
       res.send({ result: 200, data: data });
