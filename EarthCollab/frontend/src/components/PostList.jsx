@@ -2,7 +2,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useData } from "../hooks/useData";
 import PostCard from "./PostCard";
 import { useEffect, useReducer, useState } from "react";
-import { Grid2, Container, CssBaseline, FormControl, InputLabel, Select, MenuItem, TextField } from "@mui/material";
+import { Grid2, Container, CssBaseline, FormControl, InputLabel, Select, MenuItem, TextField, Box } from "@mui/material";
 import { useDeleteHook } from "../hooks/deleteHook";
 import { useUpdateHook } from "../hooks/updateHook";
 
@@ -54,19 +54,21 @@ export function PostList() {
             ))}
           </Select>
         </FormControl>
-        <Grid2 container spacing={2} size={{ xs: 12, sm: 6, md: 3 }}>
-          {filteredPosts.map((post) => (
-            <PostCard
-              key={post.id}
-              post={post}
-              onDelete={() =>
-                deleteHook("api/post", post.id, () => {
-                  setDeletedPosts((prev) => [...prev, post.id]);
-                })
-              }
-            />
-          ))}
-        </Grid2>
+        <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
+          <Grid2 container spacing={2} size={{ xs: 12, sm: 6, md: 3 }}>
+            {filteredPosts.map((post) => (
+              <PostCard
+                key={post.id}
+                post={post}
+                onDelete={() =>
+                  deleteHook("api/post", post.id, () => {
+                    setDeletedPosts((prev) => [...prev, post.id]);
+                  })
+                }
+              />
+            ))}
+          </Grid2>
+        </Box>
       </Container>
       <label>
         Show number of posts:
@@ -79,11 +81,3 @@ export function PostList() {
     </>
   );
 }
-
-/*  const postList = postsData?.map((post) => (
-    <li key={post.id}>
-      <Link to={"/posts/" + post.id}> 
-        Post #{post.id}: {post.title}
-      </Link>
-    </li>
-  )); */

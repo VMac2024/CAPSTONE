@@ -47,14 +47,6 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
   const [comments, setComments] = React.useState([]);
   const { currentUser } = useUserContext(); //get current user from userContext.
 
-  //Check if user is logged in:
-  /* useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []);*/
-
   const handleViewDetails = () => {
     navigate(`/posts/${post.id}`, { state: { post } });
   };
@@ -76,6 +68,10 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
   }, [expanded, post.id]);
 
   const handleCommentSubmit = async () => {
+    if (!currentUser) {
+      alert("you must be logged in to comment");
+      return;
+    }
     if (!comment.trim()) return;
     try {
       const newComment = {
@@ -107,20 +103,25 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
             <Typography variant="body2">{post.content}</Typography>
           </CardContent>
           {/* Comment Insert:: */}
-          <Box>
-            <TextField
-              label="Comment"
-              variant="outlined"
-              fullWidth
-              multiline
-              rows={2}
-              value={comment}
-              onChange={(e) => setComment(e.target.value)} //CHECK
-            />
-            <IconButton onClick={handleCommentSubmit}>
-              <SendIcon />
-            </IconButton>
-          </Box>
+          {currentUser && currentUser.id ? (
+            <Box>
+              <TextField
+                label="Comment"
+                variant="outlined"
+                fullWidth
+                multiline
+                rows={2}
+                value={comment}
+                onChange={(e) => setComment(e.target.value)} //CHECK
+              />
+              <IconButton onClick={handleCommentSubmit}>
+                <SendIcon />
+              </IconButton>
+            </Box>
+          ) : (
+            <Typography variant="body2">Login to Comment</Typography>
+          )}
+
           {/* Buttons: */}
           <CardActions>
             <Button size="small" onClick={handleViewDetails}>
@@ -142,15 +143,18 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
             <Box sx={{ padding: 2 }}>
               <Typography variant="h6">Comments:</Typography>
               {comments.length > 0 ? (
-                comments.map((comment) => (
-                  <Box key={comment.id} sx={{ marginBottom: 1, padding: 1, border: "1px solid #ccc", borderRadius: 1 }}>
-                    <Typography variant="subtitle2" sx={{ fontStyle: "italic" }}>
-                      {comment.userName || "Anonymous"}{" "}
-                      {/* Anonymous included as a backup - all users who wish to post should be logged in before they can do so.  */}
-                    </Typography>
-                    <Typography>{comment.comment}</Typography>
-                  </Box>
-                ))
+                comments
+                  .slice()
+                  .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                  .map((comment) => (
+                    <Box key={comment.id} sx={{ marginBottom: 1, padding: 1, border: "1px solid #ccc", borderRadius: 1 }}>
+                      <Typography variant="subtitle2" sx={{ fontStyle: "italic" }}>
+                        {comment.userName || "Anonymous"}{" "}
+                        {/* Anonymous included as a backup - all users who wish to post should be logged in before they can do so.  */}
+                      </Typography>
+                      <Typography>{comment.comment}</Typography>
+                    </Box>
+                  ))
               ) : (
                 <Typography>No comments yet.</Typography>
               )}
@@ -161,17 +165,3 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
     </Box>
   );
 }
-
-/* {expanded && (
-            <Box sx={{ padding: 2 }}>
-              {comment ? (
-                <Typography variant="h6">Comments:</Typography>
-              ) : (
-                comment?.map((comment) => (
-                  <Box key={comment.id} sx={{ marginBottom: 1 }}>
-                    <Typography>{comment.comment}</Typography>
-                  </Box>
-                ))
-              )}
-            </Box>
-          )} */
