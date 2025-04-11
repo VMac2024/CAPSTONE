@@ -15,7 +15,7 @@ const getComments = (res) => {
 
 //Find all comments associated with post:
 const getCommentsbyPost = (postId, res) => {
-  Models.Comment.findAll({ where: postId })
+  Models.Comment.findAll({ where: { postId } })
     .then((data) => {
       res.send({ result: 200, data: data });
     })

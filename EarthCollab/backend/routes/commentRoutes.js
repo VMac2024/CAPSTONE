@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:postId", (req, res) => {
-  Controllers.commentController.getCommentsByPost(req.params.postId, res);
+  Controllers.commentController.getCommentsbyPost(req.params.postId, res);
 });
 
 router.post("/create", (req, res) => {

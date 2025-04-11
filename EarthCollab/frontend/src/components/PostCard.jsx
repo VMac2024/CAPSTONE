@@ -61,14 +61,16 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
-    if (!comment) setComment(true);
   };
 
   useEffect(() => {
-    if (expanded) {
+    if (expanded && post.id) {
       axios
         .get(`api/comment/${post.id}`)
-        .then((res) => setComments(res.data))
+        .then((res) => {
+          console.log(res.data);
+          setComments(res.data.data);
+        })
         .catch((err) => console.error("Failed to load Comments", err));
     }
   }, [expanded, post.id]);
@@ -82,7 +84,7 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
         comment: comment.trim(),
       };
       const response = await axios.post("/api/comment/create", newComment);
-      setComments((prev) => [...prev, response.data]); //add the new comment into the comments list.
+      setComments((prev) => [...prev, response.data.data]); //add the new comment into the comments list.
       setComment(""); //reset comment
     } catch (error) {
       console.error("Error, could not submit comment: ", error);
@@ -141,7 +143,11 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
               <Typography variant="h6">Comments:</Typography>
               {comments.length > 0 ? (
                 comments.map((comment) => (
-                  <Box key={comment.id} sx={{ marginBottom: 1 }}>
+                  <Box key={comment.id} sx={{ marginBottom: 1, padding: 1, border: "1px solid #ccc", borderRadius: 1 }}>
+                    <Typography variant="subtitle2" sx={{ fontStyle: "italic" }}>
+                      {comment.userName || "Anonymous"}{" "}
+                      {/* Anonymous included as a backup - all users who wish to post should be logged in before they can do so.  */}
+                    </Typography>
                     <Typography>{comment.comment}</Typography>
                   </Box>
                 ))
