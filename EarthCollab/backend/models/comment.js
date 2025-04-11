@@ -7,7 +7,7 @@ class Comment extends Model {}
 Comment.init(
   {
     id: { type: DataTypes.INTEGER, allowNull: false, autoIncrement: true, primaryKey: true },
-    description: { type: DataTypes.STRING, allowNull: false },
+    comment: { type: DataTypes.STRING, allowNull: false },
   },
   {
     sequelize: sequelizeInstance,

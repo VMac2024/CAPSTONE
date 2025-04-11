@@ -18,9 +18,6 @@ export function PostList() {
   const posts = data.data ? data.data : data;
   console.log(posts);
 
-  //const [message, setMessage] = useState("");
-  //const [currentPosts, setCurrentPosts] = useState(posts);
-
   const [deletedPosts, setDeletedPosts] = useState([]);
 
   const categories = ["All", ...new Set(posts.map((posts) => posts.category))];
@@ -28,14 +25,6 @@ export function PostList() {
   const filteredPosts = posts
     .filter((post) => !deletedPosts.includes(post.id))
     .filter((post) => (selectedCategory === "All" ? posts : posts.filter((post) => post.category === selectedCategory)));
-
-  /*const postList = posts.map((post) => (
-    <PostCard
-      key={post.id}
-      post={post}
-      onDelete={() => deleteHook("api/post", post.id, () => setCurrentPosts((prev) => prev.filter((p) => p.id !== post.id)))}
-    />
-  ));*/
 
   const handleChangeCategory = (e) => {
     setSelectedCategory({ limit: e.target.value });

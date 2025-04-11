@@ -8,8 +8,8 @@ Project.init(
     id: { type: DataTypes.INTEGER, allowNull: false, autoIncrement: true, primaryKey: true },
     projectName: { type: DataTypes.STRING, allowNull: false },
     description: { type: DataTypes.STRING, allowNull: false },
-    location: { type: DataTypes.STRING, allowNull: false, unique: true },
-    volunteer: { type: DataTypes.STRING, allowNull: false },
+    location: { type: DataTypes.STRING, allowNull: false },
+    volunteer: { type: DataTypes.STRING, allowNull: true },
     webpage: { type: DataTypes.STRING, allowNull: false },
   },
   {

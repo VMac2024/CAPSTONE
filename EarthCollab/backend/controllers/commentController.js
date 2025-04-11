@@ -13,8 +13,19 @@ const getComments = (res) => {
     });
 };
 
+//Find all comments associated with post:
+const getCommentsbyPost = (postId, res) => {
+  Models.Comment.findAll({ where: postId })
+    .then((data) => {
+      res.send({ result: 200, data: data });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send({ result: 500, error: err.message });
+    });
+};
+
 //Create new comment:
-//CHECK CODE FOR CREATE NEW POST:
 const createComment = (data, res) => {
   Models.Comment.create(data)
     .then((data) => {
@@ -52,6 +63,7 @@ const deleteComment = (req, res) => {
 
 module.exports = {
   getComments,
+  getCommentsbyPost,
   createComment,
   updateComment,
   deleteComment,

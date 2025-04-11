@@ -119,8 +119,6 @@ function NavBar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page.link} component={NavLink} to={page.link}>
-                  {page.label}
-
                   <Typography sx={{ textAlign: "center" }}>{page.label}</Typography>
                 </MenuItem>
               ))}
@@ -141,9 +139,11 @@ function NavBar() {
               letterSpacing: ".3rem",
               color: "#aab7a5",
               textDecoration: "none",
+              fontSize: { xs: "1rem", sm: "1.5rem" },
+              textAlign: "center",
             }}
           >
-            LOGO
+            GreenEarth Community Hub
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (

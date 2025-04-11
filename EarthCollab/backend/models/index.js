@@ -21,12 +21,14 @@ init();
 User.hasMany(Post);
 User.hasMany(Article);
 User.hasMany(Comment);
+User.hasMany(Project);
 
 Post.belongsTo(User);
 Post.hasMany(Comment);
 Comment.belongsTo(Post);
 Comment.belongsTo(User);
 Article.belongsTo(Article);
+Project.belongsTo(User);
 
 sequelizeInstance.sync();
 
