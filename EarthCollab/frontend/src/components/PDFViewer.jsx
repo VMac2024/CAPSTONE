@@ -8,11 +8,6 @@ export default function PdfViewer({ file }) {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
 
-  /*const handleOpenPdf = () => {
-    const url = `${window.location.origin}${cleanedPath}`;
-    window.open(url, "_blank", "noopener,noreferrer");
-  };*/
-
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
     setPageNumber(1);
@@ -28,18 +23,3 @@ export default function PdfViewer({ file }) {
     </Box>
   );
 }
-
-/* <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
-        <Page pageNumber={pageNumber} />
-      </Document>
-      <Typography mt={2}>
-        Page {pageNumber} of {numPages}
-      </Typography>
-      <Box mt={2} display="flex" justifyContent="center" gap={2}>
-        <Button variant="contained" onClick={() => setPageNumber((p) => Math.max(p - 1, 1))} disabled={pageNumber <= 1}>
-          Previous
-        </Button>
-        <Button variant="contained" onClick={() => setPageNumber((p) => Math.min(p + 1, numPages))} disabled={pageNumber >= numPages}>
-          Next
-        </Button>
-      </Box> */

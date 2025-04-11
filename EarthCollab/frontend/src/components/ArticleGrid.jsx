@@ -1,4 +1,4 @@
-import { Container, CssBaseline, FormControl, Grid2, InputLabel, MenuItem, Select } from "@mui/material";
+import { Box, Container, CssBaseline, FormControl, Grid2, InputLabel, MenuItem, Select } from "@mui/material";
 import ArticleCard from "./ArticleCards";
 import { useEffect, useReducer, useState } from "react";
 import { useData } from "../hooks/useData";
@@ -46,20 +46,25 @@ export default function ArticleGrid({ pdfs = [] }) {
             ))}
           </Select>
         </FormControl>
-        <Grid2 container spacing={2} size={{ xs: 12, sm: 6, md: 3 }}>
-          {filteredArticles.map((article) => (
-            <ArticleCard
-              key={article.id}
-              article={article}
-              onDelete={() =>
-                deleteHook("api/article", article.id, () => {
-                  setDeletedArticles((prev) => [...prev, article.id]);
-                })
-              }
-            />
-          ))}
-        </Grid2>
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid2 container spacing={2} columns={{ xs: 3, sm: 6, md: 12, lg: 12 }}>
+            {filteredArticles.map((article) => (
+              <Grid2 key={article.id} size={{ xs: 12, sm: 3, md: 4, lg: 3 }} sx={{ minWidth: 275 }}>
+                <ArticleCard
+                  article={article}
+                  onDelete={() =>
+                    deleteHook("api/article", article.id, () => {
+                      setDeletedArticles((prev) => [...prev, article.id]);
+                    })
+                  }
+                />
+              </Grid2>
+            ))}
+          </Grid2>
+        </Box>
       </Container>
     </>
   );
 }
+
+//{{ xs: 10, sm: 5, md: 2, gridTemplateColumns: "repeat(auto-fill, minmax(min(200px, 100%), 1fr))" }}

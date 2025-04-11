@@ -6,7 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
-import { Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";
+import { CardMedia, Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import PdfViewer from "./PDFViewer";
 import "react-pdf/dist/esm/Page/TextLayer.css";
@@ -26,8 +26,8 @@ export default function ArticleCard({ article, user, onDelete }) {
 
   return (
     /*Render the cards in a grid to show PDFS: */
-    <Box sx={{ minWidth: 275 }}>
-      <Card variant="outlined" sx={{ minWidth: 275 }}>
+    <Box>
+      <Card variant="outlined">
         <React.Fragment>
           <CardContent>
             <Typography gutterBottom sx={{ color: "text.secondary", fontSize: 14 }}>
@@ -35,6 +35,10 @@ export default function ArticleCard({ article, user, onDelete }) {
             </Typography>
             <Typography variant="h5" component="div">
               Title: {article.title}
+            </Typography>
+            <CardMedia component="img" height={140} image={"/src/assets/images/" + article.category + ".jpg"} alt={article.title} />
+            <Typography gutterBottom sx={{ color: "text.secondary", fontSize: 14 }}>
+              {article.category}
             </Typography>
             <Typography variant="body2">{article.description}</Typography>
           </CardContent>

@@ -5,13 +5,14 @@ import { useUserContext } from "../context/userContext";
 import { Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-function PostForm() {
+function UpdatePost() {
   const { currentUser } = useUserContext(); //get current user from userContext.
   const [form, setForm] = useState({ title: "", content: "" });
   const [file, setFile] = useState({ preview: "", data: "" });
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
 
+  //Categories to be moved out to a library as an enhancement for .
   const categories = [
     "Agriculture",
     "AirQuality",
@@ -90,78 +91,57 @@ function PostForm() {
     setCategory(e.target.value);
   };
   return (
-    <Container component="main" maxWidth="400">
-      <CssBaseline />
-
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        noValidate
-        sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}
-      >
-        <Typography variant="h3" align="center">
-          Create Post
-        </Typography>
-
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="title"
-          autoFocus
-          label="Post Title"
-          name="title"
-          value={form.title}
-          onChange={(e) => setForm({ ...form, title: e.target.value })}
-        />
-        <FormControl fullWidth variant="outlined">
-          <InputLabel id="category">Category</InputLabel>
-          <Select
+    <Dialog open={open} onclose={handleClose} maxWidth="md" fullWidth>
+      <DialogTitle>Edit your post</DialogTitle>
+      <DialogContent>
+        <FormControl onSubmit={handleUpdateSubmit}>
+          <TextField
+            margin="normal"
+            required
             fullWidth
-            labelId="category"
-            id="category"
-            value={category}
-            label="Category"
-            name="category"
-            onChange={handleCategoryChange}
-          >
-            {categories.map((category, index) => (
-              <MenuItem key={index} value={category}>
-                {category}
-              </MenuItem>
-            ))}
-          </Select>
+            id="title"
+            autoFocus
+            label="Post Title"
+            name="title"
+            value={post.title}
+            onChange={(e) => setForm({ ...form, title: e.target.value })}
+          />
+          <FormControl fullWidth variant="outlined">
+            <InputLabel id="category">Category</InputLabel>
+            <Select
+              fullWidth
+              labelId="category"
+              id="category"
+              value={category}
+              label="Category"
+              name="category"
+              onChange={handleCategoryChange}
+            >
+              {categories.map((category, index) => (
+                <MenuItem key={index} value={category}>
+                  {category}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="content"
+            autoFocus
+            label="Post Content"
+            name="content"
+            value={form.content}
+            onChange={(e) => setForm({ ...form, content: e.target.value })}
+          />
+          {file.preview && <img src={file.preview} width="100" height="100" />}
+          <input name="file" type="file" onChange={handleFileChange} />
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+            Submit
+          </Button>
         </FormControl>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="content"
-          autoFocus
-          label="Post Content"
-          name="content"
-          value={form.content}
-          onChange={(e) => setForm({ ...form, content: e.target.value })}
-        />
-        {file.preview && <img src={file.preview} width="100" height="100" />}
-        <input name="file" type="file" onChange={handleFileChange} />
-        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-          Submit
-        </Button>
-      </Box>
-      {status === 200 && <Alert severity="success">Post created</Alert>}
-      {status === 500 && <Alert severity="error">Post failed, please try again</Alert>}
-    </Container>
+      </DialogContent>
+    </Dialog>
   );
 }
-
-export default PostForm;
-
-//{currentUser.id ? (
-
-//      ) : (
-// <p>Please log in first</p>
-//)}{" "}
-//
-
-//Post inputs: title, content, image, category.

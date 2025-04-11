@@ -48,7 +48,6 @@ function NavBar() {
     { link: "/projects", label: "Projects" },
     { link: "/about", label: "About" },
   ];
-  const settings = [{ link: "/loginpage", label: "Login" }];
 
   const navigate = useNavigate();
   const handleOpenNavMenu = (event) => {
@@ -152,10 +151,12 @@ function NavBar() {
               </Button>
             ))}
           </Box>
+
+          {/* Login / Logout function - set to show one or the other based on login status.  */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/broken-image.jpg" />
+                <Avatar alt={currentUser.firstName} src="/broken-image.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -174,24 +175,20 @@ function NavBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting.link} component={NavLink} to={setting.link}>
-                  <Typography sx={{ textAlign: "center" }}>{setting.label}</Typography>
+              {!currentUser?.id && (
+                <MenuItem>
+                  <Typography sx={{ textAlign: "center" }} onClick={() => navigate("/loginPage")}>
+                    Login
+                  </Typography>
                 </MenuItem>
-              ))}
-              <MenuItem>
-                <Typography
-                  sx={{ textAlign: "center" }}
-                  onClick={
-                    handleLogout
-
-                    //console.log("Test");
-                  }
-                >
-                  {/*<Button onClick={() => handleUpdateUser({} as User)}>Log Out</Button>*/}
-                  Logout
-                </Typography>
-              </MenuItem>
+              )}
+              {currentUser?.id && (
+                <MenuItem>
+                  <Typography sx={{ textAlign: "center" }} onClick={handleLogout}>
+                    Logout
+                  </Typography>
+                </MenuItem>
+              )}
             </Menu>
           </Box>
         </Toolbar>
@@ -200,5 +197,3 @@ function NavBar() {
   );
 }
 export default NavBar;
-
-//{ link: "#", label: "Logout", onClick: { handleLogout } },

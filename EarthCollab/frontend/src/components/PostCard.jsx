@@ -7,7 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
-import { CardMedia, IconButton, styled, TextField } from "@mui/material";
+import { CardMedia, Dialog, DialogContent, DialogTitle, FormControl, IconButton, styled, TextField } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
@@ -88,7 +88,7 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
   };
 
   return (
-    <Box sx={{ width: "100%", maxWidth: 300 }}>
+    <Box sx={{ width: "100%", maxWidth: 275 }}>
       <Card variant="outlined">
         <React.Fragment>
           {/* Post Content: */}

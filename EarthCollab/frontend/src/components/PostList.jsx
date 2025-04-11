@@ -54,7 +54,7 @@ export function PostList() {
             ))}
           </Select>
         </FormControl>
-        <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
+        <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap", alignItems: "center" }}>
           <Grid2 container spacing={2} size={{ xs: 12, sm: 6, md: 3 }}>
             {filteredPosts.map((post) => (
               <PostCard
