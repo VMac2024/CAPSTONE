@@ -12,7 +12,7 @@ router.post("/create", imageUpload, (req, res) => {
   Controllers.postController.createPost(req, res);
 });
 
-router.put("/:id", verifyToken, (req, res) => {
+router.put("/:id", verifyToken, imageUpload, (req, res) => {
   Controllers.postController.updatePost(req, res);
 });
 

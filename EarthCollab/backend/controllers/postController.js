@@ -41,8 +41,10 @@ const updatePost = (req, res) => {
   const { title, content, category } = req.body;
   const image = req.file ? "/images/" + req.file.filename : null; // Only update image if a file is provided
   console.log("Update data:", { title, content, category, image });
+  const updateData = { title, content, category };
+  if (image) updateData.image = image;
 
-  Models.Post.update({ title, content, category, image }, { where: { id: req.params.id }, returning: true })
+  Models.Post.update(updateData, { where: { id: req.params.id }, returning: true })
     .then((data) => {
       res.send({ result: 200, data: data });
     })

@@ -24,22 +24,23 @@ export function PostList() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const filteredPosts = posts
     .filter((post) => !deletedPosts.includes(post.id))
-    .filter((post) => (selectedCategory === "All" ? posts : posts.filter((post) => post.category === selectedCategory)));
+    .filter((article) => (selectedCategory === "All" ? true : article.category === selectedCategory));
+  //.filter((post) => (selectedCategory === "All" ? posts : posts.filter((post) => post.category === selectedCategory)));
 
   const handleChangeCategory = (e) => {
-    setSelectedCategory({ limit: e.target.value });
+    setSelectedCategory(e.target.value);
   };
 
   const handleChangeLimit = (e) => {
     setSearchParams({ limit: e.target.value });
   };
 
-  const handleUpdate = (postId) => {
+  /* const handleUpdate = (postId) => {
     const updatedData = { title: "Updated Title", content: "New Content" };
     updateHook("api/post", postId, updatedData, () => {
       //  setItems((prev) => prev.map((item) => (item.id === id ? { ...item, ...updatedData } : item)));
     });
-  };
+  };*/
   return (
     <>
       <Container>
@@ -65,7 +66,7 @@ export function PostList() {
                     setDeletedPosts((prev) => [...prev, post.id]);
                   })
                 }
-                onUpdate={handleUpdate}
+                // onUpdate={handleUpdate}
               />
             ))}
           </Grid2>

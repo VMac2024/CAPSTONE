@@ -48,8 +48,8 @@ export default function UpdatePost({ open, handleClose, post, onUpdate }) {
   //handle file change:
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setForm({
+      ...form,
       [name]: value,
     });
   };

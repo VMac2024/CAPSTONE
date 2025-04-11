@@ -20,12 +20,13 @@ export default function ArticleGrid({ pdfs = [] }) {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const filteredArticles = articles
     .filter((article) => !deletedArticles.includes(article.id))
-    .filter((article) => (selectedCategory === "All" ? articles : articles.filter((article) => article.category === selectedCategory)));
+    .filter((article) => (selectedCategory === "All" ? true : article.category === selectedCategory));
+  // .filter((article) => (selectedCategory === "All" ? articles : articles.filter((article) => article.category === selectedCategory)));
 
-  //const articleList = filteredArticles.map((article) => <ArticleCard key={article.id} article={article} />);
+  const articleList = filteredArticles.map((article) => <ArticleCard key={article.id} article={article} />);
 
   const handleChangeCategory = (e) => {
-    setSelectedCategory({ limit: e.target.value });
+    setSelectedCategory(e.target.value);
   };
 
   const handleChangeLimit = (e) => {
