@@ -33,9 +33,6 @@ app.use("/api/comment", commentRoutes);
 let postRoutes = require("./routes/PostRoutes"); //check - is refusing a LC "p".
 app.use("/api/post", postRoutes);
 
-let projectRoutes = require("./routes/projectRoutes");
-app.use("/api/project", projectRoutes);
-
 const PORT = process.env.PORT || 8081;
 console.log("PORT from env:", process.env.PORT);
 app.listen(PORT, () => {

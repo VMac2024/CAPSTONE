@@ -12,6 +12,7 @@ function PostForm() {
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
 
+  //categories to be moved out to a library.
   const categories = [
     "Agriculture",
     "AirQuality",

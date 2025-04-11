@@ -68,7 +68,7 @@ function UpdatePost() {
       console.log("category:", category);
       console.log("file.data:", file.data);
       console.log("userId", currentUser.id);
-      const response = await axios.post(`/api/post/create`, formData, { headers: headers }); //${currentUser.id} (replace "1" with this when implementing usercontext & login requirements. )
+      const response = await axios.put(`/api/post/create`, formData, { headers: headers }); //${currentUser.id} (replace "1" with this when implementing usercontext & login requirements. )
       console.log(response.data);
       setStatus(response.data.result);
       setTimeout(() => navigate("/posts"), 2000);
