@@ -15,6 +15,7 @@ import { useState, useEffect } from "react";
 import { useData } from "../hooks/useData";
 import SendIcon from "@mui/icons-material/Send";
 import { useUserContext } from "../context/userContext";
+import UpdatePost from "./UpdatePost";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -46,6 +47,7 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
   const [comment, setComment] = React.useState("");
   const [comments, setComments] = React.useState([]);
   const { currentUser } = useUserContext(); //get current user from userContext.
+  const [openModal, setOpenModal] = useState(false); //set up modal use for updating posts.
 
   const handleViewDetails = () => {
     navigate(`/posts/${post.id}`, { state: { post } });
@@ -87,6 +89,11 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
     }
   };
 
+  const handleUpdatePost = () => {
+    // Logic to update or refresh posts after successful update
+    console.log("Post updated!");
+    fetchPosts(); // Or any function that refreshes the list of posts
+  };
   return (
     <Box sx={{ width: "100%", maxWidth: 275 }}>
       <Card variant="outlined">
@@ -130,7 +137,7 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
             <IconButton size="small" onClick={onDelete}>
               <DeleteForeverOutlinedIcon />
             </IconButton>
-            <IconButton size="small" onClick={onUpdate}>
+            <IconButton size="small" onClick={() => setOpenModal(true)}>
               <EditOutlinedIcon />
             </IconButton>
 
@@ -162,6 +169,17 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
           )}
         </React.Fragment>
       </Card>
+
+      {/*Add Modal Input: */}
+      <UpdatePost
+        open={openModal}
+        handleClose={() => setOpenModal(false)}
+        post={post}
+        onUpdate={() => {
+          onUpdate(post.id);
+          setOpenModal(false);
+        }}
+      />
     </Box>
   );
 }

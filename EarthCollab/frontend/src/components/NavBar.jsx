@@ -45,7 +45,6 @@ function NavBar() {
     { link: "/", label: "Home" },
     { link: "/posts", label: "Posts" },
     { link: "/articles", label: "Articles" },
-    { link: "/projects", label: "Projects" },
     { link: "/about", label: "About" },
   ];
 

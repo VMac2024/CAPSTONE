@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const verifyToken = (req, res, next) => {
   // get the token from the request - either in body, query params or header (header preferred)
   const token = req.body.token || req.query.token || req.headers["x-access-token"];
+  console.log("received token: ", token);
 
   if (!token) {
     // bounce back to front end if no token. could also parse token here to check specific role

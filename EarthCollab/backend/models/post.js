@@ -8,7 +8,7 @@ Post.init(
     id: { type: DataTypes.INTEGER, allowNull: false, autoIncrement: true, primaryKey: true },
     title: { type: DataTypes.TEXT, allowNull: false },
     content: { type: DataTypes.TEXT, allowNull: false },
-    image: { type: DataTypes.STRING, allowNull: false, unique: true },
+    image: { type: DataTypes.STRING, allowNull: true, unique: true },
     category: { type: DataTypes.STRING, allowNull: false },
   },
   {

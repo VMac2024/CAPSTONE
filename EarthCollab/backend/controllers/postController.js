@@ -38,12 +38,16 @@ const createPost = (req, res) => {
 
 //update posts:
 const updatePost = (req, res) => {
-  Models.Post.update(req.body, { where: { id: req.params.id }, returning: true })
+  const { title, content, category } = req.body;
+  const image = req.file ? "/images/" + req.file.filename : null; // Only update image if a file is provided
+  console.log("Update data:", { title, content, category, image });
+
+  Models.Post.update({ title, content, category, image }, { where: { id: req.params.id }, returning: true })
     .then((data) => {
       res.send({ result: 200, data: data });
     })
     .catch((err) => {
-      console.log(err);
+      console.log("Error updating post:", err);
       res.send({ result: 500, error: err.message });
     });
 };

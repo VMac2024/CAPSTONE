@@ -34,10 +34,10 @@ export function PostList() {
     setSearchParams({ limit: e.target.value });
   };
 
-  const handleUpdate = (e) => {
+  const handleUpdate = (postId) => {
     const updatedData = { title: "Updated Title", content: "New Content" };
-    updateHook("api/post", post.id, updatedData, () => {
-      setItems((prev) => prev.map((item) => (item.id === id ? { ...item, ...updatedData } : item)));
+    updateHook("api/post", postId, updatedData, () => {
+      //  setItems((prev) => prev.map((item) => (item.id === id ? { ...item, ...updatedData } : item)));
     });
   };
   return (
@@ -65,6 +65,7 @@ export function PostList() {
                     setDeletedPosts((prev) => [...prev, post.id]);
                   })
                 }
+                onUpdate={handleUpdate}
               />
             ))}
           </Grid2>

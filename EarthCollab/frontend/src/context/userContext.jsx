@@ -1,13 +1,6 @@
 import React from "react";
 import { createContext, useState, useContext } from "react";
 
-/*const logoutUser = () => {
-  const [currentUser, setCurrentUser] = useState({});
-};
-const loginUser = () => {
-  const [currentUser, setCurrentUser] = (user);
-};*/
-
 const UserContext = createContext();
 
 export const UserProvider = (props) => {

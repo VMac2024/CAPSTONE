@@ -9,7 +9,6 @@ import { PostList } from "../components/PostList";
 import DashboardPage, { ArticleUpload, CreatePost } from "../pages/Dashboard";
 import LoginForm from "../components/LoginForm";
 import SignUpForm from "../components/SignUpForm";
-import ProjectPage from "../pages/ProjectPage";
 
 function AppRoutes(props) {
   return (
@@ -24,7 +23,6 @@ function AppRoutes(props) {
         <Route index element={<LoginForm />} />
         <Route path="SignUpForm" element={<SignUpForm />} />
       </Route>
-      <Route path="/projects" element={<ProjectPage {...props} />} />
       <Route path="/about" element={<AboutPage {...props} />} />
       <Route path="/articles" element={<ArticlesPage {...props} />} />
       <Route path="/dash/*" element={<DashboardPage {...props} />}>
