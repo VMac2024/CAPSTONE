@@ -2,8 +2,15 @@
 const Models = require("../models");
 
 //Find all comments:
-const getComments = (res) => {
-  Models.Comment.findAll({})
+/*const getComments = (req, res) => {
+  const postId = req.params.postId;
+  Models.Comment.findAll({
+    where: { postId: postId },
+    include: {
+      model: Models.User,
+      attributes: ["firstName"],
+    },
+  })
     .then((data) => {
       res.send({ result: 200, data: data });
     })
@@ -11,11 +18,17 @@ const getComments = (res) => {
       console.log(err);
       res.send({ result: 500, error: err.message });
     });
-};
+};*/
 
 //Find all comments associated with post:
 const getCommentsbyPost = (postId, res) => {
-  Models.Comment.findAll({ where: { postId } })
+  Models.Comment.findAll({
+    where: { postId },
+    include: {
+      model: Models.User,
+      attributes: ["firstName"],
+    },
+  })
     .then((data) => {
       res.send({ result: 200, data: data });
     })
@@ -62,7 +75,7 @@ const deleteComment = (req, res) => {
 };
 
 module.exports = {
-  getComments,
+  //getComments,
   getCommentsbyPost,
   createComment,
   updateComment,

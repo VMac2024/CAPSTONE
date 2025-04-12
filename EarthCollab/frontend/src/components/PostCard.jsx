@@ -131,15 +131,16 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
 
           {/* Buttons: */}
           <CardActions>
-            <Button size="small" onClick={handleViewDetails}>
-              Read
-            </Button>
-            <IconButton size="small" onClick={onDelete}>
-              <DeleteForeverOutlinedIcon />
-            </IconButton>
-            <IconButton size="small" onClick={() => setOpenModal(true)}>
-              <EditOutlinedIcon />
-            </IconButton>
+            {currentUser && currentUser.id === post.userId && (
+              <>
+                <IconButton size="small" onClick={onDelete}>
+                  <DeleteForeverOutlinedIcon />
+                </IconButton>
+                <IconButton size="small" onClick={() => setOpenModal(true)}>
+                  <EditOutlinedIcon />
+                </IconButton>
+              </>
+            )}
 
             <ExpandMore expand={expanded} onClick={handleExpandClick} aria-expanded={expanded} aria-label="show more">
               <ExpandMoreIcon />
@@ -156,7 +157,7 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
                   .map((comment) => (
                     <Box key={comment.id} sx={{ marginBottom: 1, padding: 1, border: "1px solid #ccc", borderRadius: 1 }}>
                       <Typography variant="subtitle2" sx={{ fontStyle: "italic" }}>
-                        {comment.userName || "Anonymous"}{" "}
+                        {comment.user?.firstName}
                         {/* Anonymous included as a backup - all users who wish to post should be logged in before they can do so.  */}
                       </Typography>
                       <Typography>{comment.comment}</Typography>

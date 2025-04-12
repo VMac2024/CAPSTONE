@@ -11,10 +11,12 @@ import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined
 import PdfViewer from "./PDFViewer";
 import "react-pdf/dist/esm/Page/TextLayer.css";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
+import { useUserContext } from "../context/userContext";
 
 export default function ArticleCard({ article, user, onDelete }) {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
+  const { currentUser } = useUserContext(); //get current user from useUserContext.
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -46,9 +48,11 @@ export default function ArticleCard({ article, user, onDelete }) {
             <Button size="small" onClick={handleOpen}>
               Read
             </Button>
-            <IconButton size="small" onClick={onDelete}>
-              <DeleteForeverOutlinedIcon />
-            </IconButton>
+            {currentUser && currentUser.id === article.userId && (
+              <IconButton size="small" onClick={onDelete}>
+                <DeleteForeverOutlinedIcon />
+              </IconButton>
+            )}
           </CardActions>
         </React.Fragment>
       </Card>
