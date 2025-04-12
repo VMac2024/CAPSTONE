@@ -17,6 +17,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { useUserContext } from "../context/userContext";
 import UpdatePost from "./UpdatePost";
 
+//Expand function for card to display comments relating to that post.
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -42,16 +43,16 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function PostCard({ post, user, onDelete, onUpdate }) {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [expanded, setExpanded] = React.useState(false);
   const [comment, setComment] = React.useState("");
   const [comments, setComments] = React.useState([]);
   const { currentUser } = useUserContext(); //get current user from userContext.
   const [openModal, setOpenModal] = useState(false); //set up modal use for updating posts.
 
-  const handleViewDetails = () => {
+  /* const handleViewDetails = () => {
     navigate(`/posts/${post.id}`, { state: { post } });
-  };
+  };*/
 
   const handleExpandClick = () => {
     setExpanded(!expanded);

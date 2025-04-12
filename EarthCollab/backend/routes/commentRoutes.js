@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const Controllers = require("../controllers");
 
-/*router.get("/", (req, res) => {
+router.get("/", (req, res) => {
   Controllers.commentController.getComments(res);
-});*/
+});
 
 router.get("/:postId", (req, res) => {
   Controllers.commentController.getCommentsbyPost(req.params.postId, res);

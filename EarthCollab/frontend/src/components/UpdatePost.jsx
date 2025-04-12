@@ -11,7 +11,7 @@ export default function UpdatePost({ open, handleClose, post, onUpdate }) {
   const [file, setFile] = useState({ preview: "", data: "" });
   const [status, setStatus] = useState("");
 
-  //Categories to be moved out to a library as an enhancement for .
+  //Categories to be moved out to a library as an enhancement in due course to ensure consistency across site.
   const categories = [
     "Agriculture",
     "AirQuality",
