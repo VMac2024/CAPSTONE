@@ -11,21 +11,27 @@ export function PostList() {
   const [searchParams, setSearchParams] = useSearchParams();
   const limit = searchParams.get("limit") ? searchParams.get("limit") : 5;
 
-  const { loading, data, error } = useData("api/post", []);
+  const [{ loading, data, error }, setData] = useData("api/post", []);
   const { deleteHook } = useDeleteHook();
   const { updateHook } = useUpdateHook();
 
-  const posts = data.data ? data.data : data;
+  const posts = data?.data ? data.data : data;
   console.log(posts);
 
   const [deletedPosts, setDeletedPosts] = useState([]);
 
   const categories = ["All", ...new Set(posts.map((posts) => posts.category))];
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const filteredPosts = posts
+  let filteredPosts = posts
     .filter((post) => !deletedPosts.includes(post.id))
     .filter((article) => (selectedCategory === "All" ? true : article.category === selectedCategory));
   //.filter((post) => (selectedCategory === "All" ? posts : posts.filter((post) => post.category === selectedCategory)));
+
+  const handleUpdatePost = (postId, updatedData) => {
+    updateHook("api/post", postId, updatedData, (updatedPost) => {
+      setData({ loading: false, data: posts.map((post) => (post.id == postId ? updatedPost : post)), error: "" });
+    });
+  };
 
   const handleChangeCategory = (e) => {
     setSelectedCategory(e.target.value);
@@ -66,7 +72,7 @@ export function PostList() {
                     setDeletedPosts((prev) => [...prev, post.id]);
                   })
                 }
-                // onUpdate={handleUpdate}
+                onUpdate={handleUpdatePost}
               />
             ))}
           </Grid2>

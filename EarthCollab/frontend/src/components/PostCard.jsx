@@ -12,7 +12,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useState, useEffect } from "react";
-import { useData } from "../hooks/useData";
+
 import SendIcon from "@mui/icons-material/Send";
 import { useUserContext } from "../context/userContext";
 import UpdatePost from "./UpdatePost";
@@ -177,9 +177,9 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
         open={openModal}
         handleClose={() => setOpenModal(false)}
         post={post}
-        onUpdate={() => {
-          onUpdate(post.id);
+        onUpdate={(updatedPost) => {
           setOpenModal(false);
+          onUpdate(post.id, updatedPost);
         }}
       />
     </Box>

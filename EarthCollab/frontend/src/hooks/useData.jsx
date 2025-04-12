@@ -27,5 +27,5 @@ export function useData(url, defaultValue = {}) {
     }
   }, [url]);
 
-  return data;
+  return [data, setData];
 }

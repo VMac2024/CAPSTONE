@@ -8,7 +8,7 @@ import { useDeleteHook } from "../hooks/deleteHook";
 const itemsPerPage = 12;
 
 export default function ArticleGrid({ pdfs = [] }) {
-  const { data } = useData("/api/article", []);
+  const [{ data }] = useData("/api/article", []);
   const { deleteHook } = useDeleteHook();
 
   const articles = data.data ? data.data : data;

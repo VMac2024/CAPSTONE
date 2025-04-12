@@ -37,21 +37,24 @@ const createPost = (req, res) => {
 };
 
 //update posts:
-const updatePost = (req, res) => {
+const updatePost = async (req, res) => {
   const { title, content, category } = req.body;
   const image = req.file ? "/images/" + req.file.filename : null; // Only update image if a file is provided
   console.log("Update data:", { title, content, category, image });
   const updateData = { title, content, category };
   if (image) updateData.image = image;
-
-  Models.Post.update(updateData, { where: { id: req.params.id }, returning: true })
-    .then((data) => {
-      res.send({ result: 200, data: data });
-    })
-    .catch((err) => {
-      console.log("Error updating post:", err);
-      res.send({ result: 500, error: err.message });
-    });
+  try {
+    const [rowsUpdated] = await Models.Post.update(updateData, { where: { id: req.params.id } });
+    console.log(rowsUpdated);
+    if (rowsUpdated > 0) {
+      const updatedPost = await Models.Post.findByPk(req.params.id);
+      return res.status(200).json({ result: 200, data: updatedPost });
+    }
+    return res.json({ result: 404 });
+  } catch (err) {
+    console.log("Error updating post:", err);
+    res.send({ result: 500, error: err.message });
+  }
 };
 
 //delete users:
