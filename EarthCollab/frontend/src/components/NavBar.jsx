@@ -19,26 +19,18 @@ function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const { currentUser, handleUpdateUser } = useUserContext();
-  //const { currentUser, setCurrentUser } = useUserContext();
-
-  // let loggedInUser = null;
 
   const handleLogout = () => {
     console.log("UserLogoutState:", currentUser);
 
-    handleUpdateUser({}); //loggedInUser
+    handleUpdateUser({});
 
     handleCloseUserMenu();
     navigate("/");
 
-    //setCurrentUser(loggedInUser);
-    // {() => handleUpdateUser({} as User)}
-    //const { currentUser, handleUpdateUser } = useUserContext();
     console.log("currentUser:", currentUser);
-    //console.log("loggedoutUser:", loggedInUser);
-    //setTimeout(() => navigate("/"), 3000);
+
     console.log("user:", currentUser);
-    //return;
   };
 
   const pages = [

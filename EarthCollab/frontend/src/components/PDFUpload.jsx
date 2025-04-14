@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react"; //useContext
+import { useState } from "react";
 import { Container, CssBaseline, Box, TextField, Button, Select, MenuItem, Typography, FormControl, InputLabel } from "@mui/material";
 import { useUserContext } from "../context/userContext";
 import { Alert } from "@mui/material";
@@ -38,12 +38,10 @@ function PDFUpload() {
   ];
   const [category, setCategory] = useState("");
 
-  // const { currentUser, handleUpdateUser } = useUserContext();
-
   console.log(currentUser);
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); //prevent defaul form action from taking effect until submitted.
+    e.preventDefault();
 
     if (!file.data) {
       setStatus("Please add file to upload");
@@ -51,7 +49,7 @@ function PDFUpload() {
     }
 
     let formData = new FormData();
-    formData.append("file", file.data); //check if this has a naming convention?
+    formData.append("file", file.data);
     formData.append("title", form.title);
     formData.append("description", form.description);
     formData.append("category", category);
@@ -141,7 +139,7 @@ function PDFUpload() {
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
         />
-        {/** {file.preview && <embed src={file.preview} width="400" height="400" />} */}
+
         <input name="file" type="file" onChange={handleFileChange} accept="application/pdf" />
         <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
           Submit
@@ -154,10 +152,3 @@ function PDFUpload() {
 }
 
 export default PDFUpload;
-
-//{currentUser.id ? (
-
-//      ) : (
-// <p>Please log in first</p>
-//)}{" "}
-//

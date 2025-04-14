@@ -4,15 +4,12 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useNavigate } from "react-router-dom";
-import { CardMedia, Dialog, DialogContent, DialogTitle, FormControl, IconButton, styled, TextField } from "@mui/material";
+import { CardMedia, IconButton, styled, TextField } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useState, useEffect } from "react";
-
 import SendIcon from "@mui/icons-material/Send";
 import { useUserContext } from "../context/userContext";
 import UpdatePost from "./UpdatePost";
@@ -43,16 +40,11 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function PostCard({ post, user, onDelete, onUpdate }) {
-  //const navigate = useNavigate();
   const [expanded, setExpanded] = React.useState(false);
   const [comment, setComment] = React.useState("");
   const [comments, setComments] = React.useState([]);
   const { currentUser } = useUserContext(); //get current user from userContext.
   const [openModal, setOpenModal] = useState(false); //set up modal use for updating posts.
-
-  /* const handleViewDetails = () => {
-    navigate(`/posts/${post.id}`, { state: { post } });
-  };*/
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -90,11 +82,11 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
     }
   };
 
-  const handleUpdatePost = () => {
+  /*const handleUpdatePost = () => {
     // Logic to update or refresh posts after successful update
     console.log("Post updated!");
     fetchPosts(); // Or any function that refreshes the list of posts
-  };
+  };*/
   return (
     <Box sx={{ width: "100%", maxWidth: 275 }}>
       <Card variant="outlined">
@@ -120,7 +112,7 @@ export default function PostCard({ post, user, onDelete, onUpdate }) {
                 multiline
                 rows={2}
                 value={comment}
-                onChange={(e) => setComment(e.target.value)} //CHECK
+                onChange={(e) => setComment(e.target.value)}
               />
               <IconButton onClick={handleCommentSubmit}>
                 <SendIcon />

@@ -15,20 +15,6 @@ const getUsers = (res) => {
     });
 };
 
-//Create new users - Admin Route:
-/*const createUser = (data, res) => {
-  Models.User.create(data)
-    .then((data) => {
-      res.send({ result: 200, data: data });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.send({ result: 500, error: err.message });
-    });
-};*/
-
-//Create token: - see middleware - jsonwebtoken - see Jo's code.
-
 //Create new user - ("registration") - public facing route.
 const createUser = async (req, res) => {
   try {
@@ -123,8 +109,6 @@ const deleteUser = (req, res) => {
       res.send({ result: 500, error: err.message });
     });
 };
-
-//CREATE USER TOKEN WITH TIMEOUT LIMIT.
 
 module.exports = {
   getUsers,

@@ -1,5 +1,4 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { PostList } from "../components/PostList";
 import { Button } from "@mui/material";
 import { useUserContext } from "../context/userContext";
 

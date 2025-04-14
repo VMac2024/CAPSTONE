@@ -1,10 +1,9 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
-import { Box, Container, Button, CssBaseline, Typography, Select, MenuItem, Link, InputLabel, FormControl } from "@mui/material";
+import { Box, Container, Button, CssBaseline, Typography, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Link as RouterLink } from "react-router-dom";
 
 function SignUpForm() {
   const [form, setForm] = useState({
@@ -17,7 +16,6 @@ function SignUpForm() {
   });
 
   const expertiseLevel = ["Enthusiast", "Professional"];
-  //const [expertise, setExpertise] = useState("");
 
   const [result, setResult] = useState("");
 
@@ -33,16 +31,6 @@ function SignUpForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    //  const data = new FormData(event.currentTarget);
-
-    /* let data = new FormData();
-
-    data.append("firstName", form.firstName);
-    data.append("emailId", form.emailId);
-    data.append("password", form.password);
-    data.append("location", form.location);
-    data.append("expertise", expertise);
-    //  accessLevel: "",*/
 
     axios
       .post(`/api/user/create`, form)
@@ -153,12 +141,4 @@ function SignUpForm() {
 
 export default SignUpForm;
 
-/*<TextField
-label="Access Level"
-name="accessLevel"
-value={form.accessLevel}
-onChange={handleChange}
-variant="outlined"
-fullWidth
-margin="normal"
-/> - NOTE - SET THIS ACCESSLEVEL AT THE BACKEND - NOT A USER'S CHOICE*/
+/*NOTE - ACCESSLEVEL SET AT THE BACKEND - NOT A USER'S CHOICE*/

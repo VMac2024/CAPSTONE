@@ -15,7 +15,6 @@ const getArticles = (res) => {
 };
 
 //Create new articles:
-//CHECK CODE FOR CREATE NEW ARTICLE:
 const createArticle = (req, res) => {
   console.log(req.body); //check body data.
   console.log(req.file); //check file name.
@@ -37,7 +36,7 @@ const createArticle = (req, res) => {
     });
 };
 
-//update articles:
+//update articles - included for future use. Not linked:
 const updateArticle = (req, res) => {
   Models.Article.update(req.body, { where: { id: req.params.id }, returning: true })
     .then((data) => {
@@ -68,4 +67,4 @@ module.exports = {
   deleteArticle,
 };
 
-// ADD FIND ARTICLES BY USER
+// ADD FIND ARTICLES BY USER (FUTURE DEVELOPMENT)

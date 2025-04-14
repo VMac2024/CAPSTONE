@@ -4,7 +4,6 @@ import PostPage from "../pages/PostPage";
 import AboutPage from "../pages/AboutPage";
 import ArticlesPage from "../pages/ArticlesPage";
 import Homepage from "../pages/HomePage";
-import { Post } from "../components/Post";
 import { PostList } from "../components/PostList";
 import DashboardPage, { ArticleUpload, CreatePost } from "../pages/Dashboard";
 import LoginForm from "../components/LoginForm";
@@ -16,8 +15,6 @@ function AppRoutes(props) {
       <Route index element={<Homepage {...props} />} />
       <Route path="/posts" element={<PostPage {...props} />}>
         <Route index element={<PostList />} />
-        {/* dynamic param taken from route, stored in variable called id */}
-        <Route path=":id" element={<Post />} />
       </Route>
       <Route path="/loginpage/*" element={<LoginPage {...props} />}>
         <Route index element={<LoginForm />} />
@@ -34,11 +31,3 @@ function AppRoutes(props) {
 }
 
 export default AppRoutes;
-/*<Route path="dash" element={<ProtectedRoute>
-<DashboardPage {...props} /></ProtectedRoute>}>
-<Route path="messages" element={<DashboardMessages />} />
-<Route path="tasks" element={<DashboardTasks />} />
-</Route>
-<Route path="login" element={<LoginForm/>} />
-// update NavBar.jsx to include our login page
-<li><NavLink to="/login">Login</NavLink></li> */

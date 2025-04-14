@@ -14,7 +14,6 @@ const getPosts = (res) => {
 };
 
 //Create new posts:
-//CHECK CODE FOR CREATE NEW POST:
 const createPost = (req, res) => {
   console.log(req.body);
   console.log(req.file);

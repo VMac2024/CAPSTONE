@@ -1,8 +1,7 @@
 import { Box, Container, CssBaseline, FormControl, Grid2, InputLabel, MenuItem, Select } from "@mui/material";
 import ArticleCard from "./ArticleCards";
-import { useEffect, useReducer, useState } from "react";
+import { useState } from "react";
 import { useData } from "../hooks/useData";
-import axios from "axios";
 import { useDeleteHook } from "../hooks/deleteHook";
 
 const itemsPerPage = 12;
@@ -21,16 +20,11 @@ export default function ArticleGrid({ pdfs = [] }) {
   const filteredArticles = articles
     .filter((article) => !deletedArticles.includes(article.id))
     .filter((article) => (selectedCategory === "All" ? true : article.category === selectedCategory));
-  // .filter((article) => (selectedCategory === "All" ? articles : articles.filter((article) => article.category === selectedCategory)));
 
   const articleList = filteredArticles.map((article) => <ArticleCard key={article.id} article={article} />);
 
   const handleChangeCategory = (e) => {
     setSelectedCategory(e.target.value);
-  };
-
-  const handleChangeLimit = (e) => {
-    setSearchParams({ limit: e.target.value });
   };
 
   return (
@@ -67,5 +61,3 @@ export default function ArticleGrid({ pdfs = [] }) {
     </>
   );
 }
-
-//{{ xs: 10, sm: 5, md: 2, gridTemplateColumns: "repeat(auto-fill, minmax(min(200px, 100%), 1fr))" }}

@@ -1,25 +1,6 @@
 "use strict";
 const Models = require("../models");
 
-//Find all comments:
-/*const getComments = (req, res) => {
-  const postId = req.params.postId;
-  Models.Comment.findAll({
-    where: { postId: postId },
-    include: {
-      model: Models.User,
-      attributes: ["firstName"],
-    },
-  })
-    .then((data) => {
-      res.send({ result: 200, data: data });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.send({ result: 500, error: err.message });
-    });
-};*/
-
 //Find all comments associated with post:
 const getCommentsbyPost = (postId, res) => {
   Models.Comment.findAll({
@@ -75,7 +56,6 @@ const deleteComment = (req, res) => {
 };
 
 module.exports = {
-  //getComments,
   getCommentsbyPost,
   createComment,
   updateComment,

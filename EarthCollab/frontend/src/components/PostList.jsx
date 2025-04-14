@@ -25,7 +25,6 @@ export function PostList() {
   let filteredPosts = posts
     .filter((post) => !deletedPosts.includes(post.id))
     .filter((article) => (selectedCategory === "All" ? true : article.category === selectedCategory));
-  //.filter((post) => (selectedCategory === "All" ? posts : posts.filter((post) => post.category === selectedCategory)));
 
   const handleUpdatePost = (postId, updatedData) => {
     updateHook("api/post", postId, updatedData, (updatedPost) => {
@@ -37,16 +36,6 @@ export function PostList() {
     setSelectedCategory(e.target.value);
   };
 
-  const handleChangeLimit = (e) => {
-    setSearchParams({ limit: e.target.value });
-  };
-
-  /* const handleUpdate = (postId) => {
-    const updatedData = { title: "Updated Title", content: "New Content" };
-    updateHook("api/post", postId, updatedData, () => {
-      //  setItems((prev) => prev.map((item) => (item.id === id ? { ...item, ...updatedData } : item)));
-    });
-  };*/
   return (
     <>
       <Container>
@@ -78,14 +67,6 @@ export function PostList() {
           </Grid2>
         </Box>
       </Container>
-      <label>
-        Show number of posts:
-        <select onChange={handleChangeLimit}>
-          <option>5</option>
-          <option>10</option>
-          <option>20</option>
-        </select>
-      </label>
     </>
   );
 }
